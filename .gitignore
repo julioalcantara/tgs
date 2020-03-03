@@ -1,0 +1,16 @@
+frontEnd/node_modules/**/*
+frontEnd/.expo/*
+frontEnd/npm-debug.*
+frontEnd/*.jks
+frontEnd/*.p8
+frontEnd/*.p12
+frontEnd/*.key
+frontEnd/*.mobileprovision
+frontEnd/*.orig.*
+frontEnd/web-build/
+frontEnd/web-report/
+
+# macOS
+frontEnd/.DS_Store
+
+server/node_modules/**/*

@@ -1,0 +1,27 @@
+
+//server
+npm init -y
+
+npm install express
+
+npm install jsonwebtoken
+
+npm install mongoose
+
+npm install nodemon
+
+npm install --global --production windows-build-tools // nescessary for bcrypt	
+
+npm install bcrypt
+
+npm install react-navigation
+
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+npm install react-navigation-stack @react-native-community/masked-view
+
+npm install react-navigation-tabs
+
+// frontend
+
+npx expo-cli init 
