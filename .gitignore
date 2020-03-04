@@ -1,16 +1,16 @@
-frontEnd/node_modules/**/*
-frontEnd/.expo/*
-frontEnd/npm-debug.*
-frontEnd/*.jks
-frontEnd/*.p8
-frontEnd/*.p12
-frontEnd/*.key
-frontEnd/*.mobileprovision
-frontEnd/*.orig.*
-frontEnd/web-build/
-frontEnd/web-report/
+frontEnd/tgs-app/node_modules/**/*
+frontEnd/tgs-app/.expo/*
+frontEnd/tgs-app/npm-debug.*
+frontEnd/tgs-app/*.jks
+frontEnd/tgs-app/*.p8
+frontEnd/tgs-app/*.p12
+frontEnd/tgs-app/*.key
+frontEnd/tgs-app/*.mobileprovision
+frontEnd/tgs-app/*.orig.*
+frontEnd/tgs-app/web-build/
+frontEnd/tgs-app/web-report/
 
 # macOS
-frontEnd/.DS_Store
+frontEnd/tgs-app/.DS_Store
 
 server/node_modules/**/*

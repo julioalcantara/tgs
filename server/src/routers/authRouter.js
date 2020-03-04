@@ -5,7 +5,7 @@ const User = mongoose.model('User');
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res)=> {
     const { email, password } = req.body;
 
     try{
@@ -20,7 +20,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // signin authentication
-router.post('/signin', async (req, res) =>{
+router.post('/signin', async (req, res)=> {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -38,8 +38,7 @@ router.post('/signin', async (req, res) =>{
         res.send({ token });
     } catch (err) {
         return res.status(422).send({ error: 'Invalide password or email'});
-    }
-    
+    }  
 });
 
 module.exports = router;

@@ -24,4 +24,4 @@ npm install react-navigation-tabs
 
 // frontend
 
-npx expo-cli init 
+npx expo-cli init // create a react file for screens
