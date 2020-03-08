@@ -11,11 +11,23 @@ const authReducer = ( state, action ) => {
             return { errorMessage: '', token: action.payload };
         case 'clean_error_message':
             return { ...state, errorMessage: ''};
+        case 'signout':
+            return { token: null, errorMessage: ''};
 
         default: 
             return state;
     }
 };
+
+const tryLocalSignin = dispatch => async () => {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+        dispatch ({ type: 'signin', payload: token });
+        navigate('Main');
+    } else {
+        navigate('Signup');
+    }
+}
 
 const cleanErrorMessage = dispatch => () => {
     dispatch({ type: 'clean_error_message'});
@@ -33,7 +45,7 @@ const signup = (dispatch) => async ({ email, password }) => {
             payload: response.data.token 
         });
         // navigte to main flow
-        navigate('DatesAvailable');
+        navigate('Main');
 
     } catch (err) {
         dispatch ({ 
@@ -53,7 +65,7 @@ const signin = (dispatch) => async ({ email, password }) => {
                 type: 'signin',
                 payload: response.data.token
              });
-             navigate('DatesAvailable');
+             navigate('Main');
 
         } catch(err) {
             dispatch({
@@ -63,14 +75,15 @@ const signin = (dispatch) => async ({ email, password }) => {
         }
     };
 
-const signout = (dispatch) => {
-    return ({ email, password }) => {  
-
-    };
+const signout = dispatch => async ()=> {
+    await AsyncStorage.removeItem('token');
+    dispatch({ type: 'signout' });
+    navigate('loginFlow');
 };
+
 
 export const { Provider, Context } = CreateDataConxtext(
     authReducer,
-    { signin, signout, signup, cleanErrorMessage },
+    { signin, signout, signup, cleanErrorMessage, tryLocalSignin },
     { token: null, errorMessage: '' }
-);
+); 

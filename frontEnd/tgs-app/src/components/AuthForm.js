@@ -21,7 +21,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
             <Spacer />
             <Input 
                 secureTextEntry = {true}
-                label = "Password" 
+                label = "Password"  
                 value = {password}
                 onChangeText = {setPassword}    
                 autoCapitalize = "none"

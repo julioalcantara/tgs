@@ -7,7 +7,7 @@ import NavLink from '../components/NavLink';
 
 const SingupScreen = ({ navigation }) => {
     const { state, signup, cleanErrorMessage } = useContext(AuthContext);
-
+    
     return (
         <View style={styles.container}>
             <NavigationEvents onWillBlur={ cleanErrorMessage } />

@@ -9,19 +9,21 @@ import HomeScreen from './src/screens/HomeScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import StudioProfileScreen from './src/screens/StudioProfileScreen';
 import DatesAvailableScreen from './src/screens/DatesAvailableScreen';
+import IntroScreen from './src/screens/IntroScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { setNavigator } from './src/navigationRef';
 
 const switchNavigator = createSwitchNavigator ({
+  Intro: IntroScreen,
   loginFlow: createStackNavigator ({
     Signin: SigninScreen,
     Signup: SignupScreen
   }),
   mainFlow: createBottomTabNavigator ({
-    subFlow: createStackNavigator ({
+    Home: createStackNavigator ({
+      Main: HomeScreen,
       DatesAvailable: DatesAvailableScreen
     }),
-    Home: HomeScreen,
     Studio: StudioProfileScreen,
     Profile: ProfileScreen
   })

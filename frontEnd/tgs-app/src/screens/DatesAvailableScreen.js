@@ -1,10 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Button } from 'react-native';
 
-const DatesAvailableScreen = () => {
+const DatesAvailableScreen = ({ navigation }) => {
     return (
         <View>
             <Text> DatesAvailableScreen </Text>
+            <Button 
+                title = "Go to Home"
+                onPress = {() => navigation.navigate('Profile')}
+            />
+
         </View>
     );
 }
