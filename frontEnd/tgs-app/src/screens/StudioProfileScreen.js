@@ -14,12 +14,15 @@ const StudioProfileScreen = ({ navigate }) => {
             />
             <NavLinksBtn 
                 text = "About" 
+                routeName = "Studio"
             />
             <NavLinksBtn 
                 text = "Location" 
+                routeName = "Studio"
             />
             <NavLinksBtn 
                 text = "Terms and Conditions" 
+                routeName = "Studio"
             />
             <NavLinksBtn 
                 text = "Date Availability" 
