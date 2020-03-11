@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {View, Button, Platform, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, Platform, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { FontAwesome } from "@expo/vector-icons";
-import Spacer from '../components/Spacer';
 
-const Calendar = ({ navigation, label }) => {
+const Calendar = ({ label }) => {
+    
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
     let outputDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
@@ -22,16 +21,10 @@ const Calendar = ({ navigation, label }) => {
 
     return (
         <View>
-            <View style={styles.container}>
-                <Text style={styles.output}>{outputDate}</Text>
+            <View style={styles.container}> 
                 <TouchableOpacity  onPress= {()=>isShow()}>
-                    <View style={styles.icon}>
-                        <FontAwesome
-                            name="calendar"
-                            size={40}
-                            color='black'
-                        />
-                    </View>
+                <Text style={styles.label}>{label}</Text>
+                <Text style={styles.output}>{outputDate}</Text>
                 </TouchableOpacity>          
 
                 {show && (
@@ -44,29 +37,26 @@ const Calendar = ({ navigation, label }) => {
                 )} 
             </View>
         </View>
-        
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "row",
-        justifyContent: 'center'
-        
+        flexDirection: "row"     
     },
     output: {
         fontSize: 16,
         textAlign: "center",
         textAlignVertical: "center",
         height: 40,
-        width: 250,
+        width: 170,
         borderColor: 'black',
         borderWidth: 1,
-        borderRadius: 10,
-        margin: 10
+        marginHorizontal: 10
     },
-    icon: {
-        margin: 10
+    label: {
+        marginLeft:15,
+        fontSize: 15
     }
 });
 

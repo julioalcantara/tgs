@@ -81,6 +81,23 @@ const signout = dispatch => async ()=> {
     navigate('loginFlow');
 };
 
+const calendar = dispatch => async () => {
+    try {
+        const response = await dataBaseApi.post('/checkin', {checkin, checkout});
+        await AsyncStorage.setItem('date', response.data.date);
+        dispatch({ 
+            type: 'checkin',
+            payload: response.data.date
+         });
+         navigate('Main');
+
+    } catch(err) {
+        dispatch({
+            type: 'add_error',
+            payload: 'Something went wrong with sign in'
+        })
+    }
+};
 
 export const { Provider, Context } = CreateDataConxtext(
     authReducer,
