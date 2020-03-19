@@ -10,6 +10,14 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String, 
         required: true
+    },
+    checkin: {
+        type: Date,
+        required: false
+    },
+    checkout: {
+        type: Date,
+        required: false
     }
 });
 

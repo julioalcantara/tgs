@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(authRouter);
 
-const mongoUri = 'mongodb+srv://Admin:Admin@tgs-qhwpm.mongodb.net/test?retryWrites=true&w=majority';
+const mongoUri = 'mongodb+srv://Admin:Admin@tgs-qhwpm.mongodb.net/tgs?retryWrites=true&w=majority';
 mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useCreateIndex: true

@@ -41,4 +41,18 @@ router.post('/signin', async (req, res)=> {
     }  
 });
 
+router.post('/calendar', async (req, res)=> {
+    const { checkin, checkout } = req.body;
+
+    try{
+        const user = new User({ checkin, checkout});
+        await user.save();
+
+        const token = jwt.sign({ userId: user._id}, 'MY_SECRET_KEY');
+        res.send({ token });
+    } catch (err) {
+        return res.status(422).send({ error: 'Please select a date'});
+    }  
+});
+
 module.exports = router;
