@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Button} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from 'react-navigation';  
 
@@ -40,7 +40,7 @@ const CalendarForm = ({ label, submitButtonText, onSubmit }) => {
 
             <Button 
             title= {submitButtonText}
-            onPress={() => onSubmit({ date })}
+            // onPress={() => onSubmit({  })}
            />
         </SafeAreaView>
     );

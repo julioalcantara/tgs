@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require ('mongoose');
 const authRouter = require('./routers/authRouter');
 const requireAuth = require('./middlewares/requireAuth');
-const dateRoute = require('./routers/bookingRouter');
+const dateRoute = require('./routers/dateRouter');
 
 const app = express();
 

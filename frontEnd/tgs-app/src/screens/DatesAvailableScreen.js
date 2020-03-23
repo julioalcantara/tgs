@@ -5,7 +5,7 @@ import { Context } from "../context/BookingContext";
 import Spacer from '../components/Spacer';
 
 const DatesAvailableScreen = () => {
-    const { booking } = useContext(Context);
+    //const { booking } = useContext(Context);
     
     return (
         <View style={styles.container}>
@@ -13,7 +13,7 @@ const DatesAvailableScreen = () => {
                 <Calendarform 
                 label="CHECK-IN" 
                 submitButtonText="Book"
-                onSubmit = {booking}
+                //onSubmit = {console.log('hahaha')}
                 />
                 
             </View>
