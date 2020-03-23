@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
+const userSchema = new new mongoose.Schema({
     email: {
         type: String,
         unique: true,
@@ -10,14 +10,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String, 
         required: true
-    },
-    checkin: {
-        type: Date,
-        required: false
-    },
-    checkout: {
-        type: Date,
-        required: false
     }
 });
 

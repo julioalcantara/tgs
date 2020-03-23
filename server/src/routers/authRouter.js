@@ -9,7 +9,7 @@ router.post('/signup', async (req, res)=> {
     const { email, password } = req.body;
 
     try{
-        const user = new User({ email, password});
+        const user = new User({ name, email, password});
         await user.save();
 
         const token = jwt.sign({ userId: user._id}, 'MY_SECRET_KEY');
@@ -36,23 +36,11 @@ router.post('/signin', async (req, res)=> {
         await user.comparePassword(password);
         const token = jwt.sign({ userId: user._id }, 'MY_SECRET_KEY');
         res.send({ token });
+        
     } catch (err) {
         return res.status(422).send({ error: 'Invalide password or email'});
     }  
 });
 
-router.post('/calendar', async (req, res)=> {
-    const { checkin, checkout } = req.body;
-
-    try{
-        const user = new User({ checkin, checkout});
-        await user.save();
-
-        const token = jwt.sign({ userId: user._id}, 'MY_SECRET_KEY');
-        res.send({ token });
-    } catch (err) {
-        return res.status(422).send({ error: 'Please select a date'});
-    }  
-});
 
 module.exports = router;
