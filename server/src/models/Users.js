@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -10,8 +11,21 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String, 
         required: true
-    }
+    },
+    booking1: {type: mongoose.Schema.Types.ObjectId, ref: 'Booking1'}
 });
+const bookingSchema1 = new mongoose.Schema({
+
+    checkin: {
+        type:String
+    },
+    checkout: {
+        type:String
+    }
+ 
+});
+
+
 
 //this function will run before user data get stored in the database using "hash and salt"
 userSchema.pre('save',  function(next) {
@@ -55,4 +69,5 @@ userSchema.methods.comparePassword = function (candidatePassword) {
     });
 }
 
+mongoose.model('Booking1', bookingSchema1);
 mongoose.model('User', userSchema);
