@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require ('mongoose');
 const authRouter = require('./routers/authRouter');
+const bookingRouter = require('./routers/bookingRouter');
 const requireAuth = require('./middlewares/requireAuth');
 
 
@@ -12,6 +13,7 @@ const admin = express(); // the sub app -> https://expressjs.com/en/4x/api.html#
 
 app.use(bodyParser.json());
 app.use(authRouter);
+app.use('/bookings', bookingRouter);
 app.use('/admin', admin); //mount the sub app
 
 const mongoUri = 'mongodb+srv://Admin:Admin@tgs-qhwpm.mongodb.net/tgs?retryWrites=true&w=majority';
