@@ -1,14 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Booking = require('../models/Booking');
-const Profile = require('../models/Profile'); 
-
+const requireAuth = require('../middlewares/requireAuth');
+const Booking = mongoose.model('Booking');
+const Profile = mongoose.model('Profile'); 
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.get('/booking', (req, res) => {
     Booking.find()
-    .populate('profileId', 'name') // populate the booking schema with the user info
+    .populate('profileId', 'name') // populate the booking schema with the profile info
     .exec()
     .then(docs => {
         res.status(200).json({
@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
                     checkout: docs.checkout,
                     request: {
                         type: 'GET',
-                        url: "http://localhost:3000/bookings/" + docs._id
+                        url: "http://localhost:3000/booking/" + docs._id
                     }
                 }
             })
@@ -35,12 +35,12 @@ router.get('/', (req, res, next) => {
 
 });
 
-router.post('/', (req, res, next)=> {
+router.post('/booking', requireAuth,  (req, res)=> {
     Profile.findById( req.body.profileId)
         .then(profileId => {
             if(!profileId){
                 return res.status(404).json({
-                    message: 'User not found'
+                    message: 'profile not found'
                 })
             }
             const booking = new Booking({
@@ -60,10 +60,9 @@ router.post('/', (req, res, next)=> {
                 checkout: result.checkout,
                 request: {
                     type: 'GET',
-                    url: "http://localhost:3000/bookings/" + result._id
+                    url: "http://localhost:3000/booking/" + result._id
                 }
-            });
-            
+            }); 
         }).catch(err => {
                 res.status(500).json({
                     error: err
@@ -71,10 +70,9 @@ router.post('/', (req, res, next)=> {
             });
 });
 
-
-router.get('/:bookingId', (req, res, next)=> {
+router.get('/booking/:bookingId', requireAuth ,(req, res)=> {
     Booking.findById(req.params.bookingId)
-        .populate('profileId') // populate the booking schema with the user info
+        .populate('profileId') // populate the booking schema with the profile info
         .exec()
         .then(booking => {
             if(!booking){
@@ -86,7 +84,7 @@ router.get('/:bookingId', (req, res, next)=> {
                 id: booking,
                 request: {
                     type: 'GET',
-                    url: "http://localhost:3000/bookings/"
+                    url: "http://localhost:3000/booking/"
                 }
             });
         })
@@ -98,7 +96,28 @@ router.get('/:bookingId', (req, res, next)=> {
 
 });
 
-router.delete('/:bookingId', (req, res, next)=> {
+router.patch('/booking/:bookingId', requireAuth,(req, res)=> {
+    const id = req.params.bookingId;
+    const updateBooking = req.body;
+    Booking.update({ _id: id }, {$set: updateBooking})
+        .exec()
+        .then( result => {
+            res.status(200).json({
+                message: 'booking updated',
+                request: {
+                    type: 'GET',
+                    url: "http://localhost:3000/booking/" + id
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+});
+
+router.delete('/booking/:bookingId', requireAuth, (req, res)=> {
     Booking.remove({ _id: req.params.bookingId })
         .exec()
         .then(result => {
@@ -106,7 +125,7 @@ router.delete('/:bookingId', (req, res, next)=> {
                 message: 'Booking deleted',
                 request: {
                     type: 'POS',
-                    url: "http://localhost:3000/bookings",
+                    url: "http://localhost:3000/booking",
                     body: { name: "name", email: "email@email.com"}
                 }
             });

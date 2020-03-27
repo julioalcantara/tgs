@@ -1,4 +1,5 @@
 require('./models/Users');
+require('./models/Profile');
 require('./models/Booking');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -10,12 +11,12 @@ const requireAuth = require('./middlewares/requireAuth');
 
 
 const app = express(); // the main app
-const admin = express(); // the sub app -> https://expressjs.com/en/4x/api.html#app.METHOD
+//const admin = express(); // the sub app -> https://expressjs.com/en/4x/api.html#app.METHOD
 
 app.use(bodyParser.json());
 app.use(authRouter);
-app.use('/profiles', profileRouter);
-app.use('/bookings', bookingRouter);
+app.use(profileRouter);
+app.use(bookingRouter);
 //app.use('/admin', admin); //mount the sub app
 
 const mongoUri = 'mongodb+srv://Admin:Admin@tgs-qhwpm.mongodb.net/tgs?retryWrites=true&w=majority';
@@ -37,10 +38,6 @@ app.get('/', requireAuth, (req, res) => {
     res.send(`Your id is: ${req.user._id}`);
 });
 
-//admin
-// admin.get('/', requireAuth, (req, res)=> {
-//     res.send('admin Home paige ');
-// });
 
 app.listen(3000, () => {
     console.log('Listening on port 3000');

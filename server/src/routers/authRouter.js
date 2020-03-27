@@ -7,13 +7,13 @@ const router = express.Router();
 
 //define a route  ->  https://expressjs.com/en/guide/routing.html
 router.post('/signup', async (req, res)=> {
-    const { _id, email, password } = req.body;
+    const {  email, password } = req.body; //get information from the body
 
     try{
-        const user = new User({ _id, email, password});
+        const user = new User({ email, password}); //create a new user schema
         await user.save();
 
-        const token = jwt.sign({ userId: user._id}, 'MY_SECRET_KEY');
+        const token = jwt.sign({ userId: user._id}, 'MY_SECRET_KEY'); // veryfy the user that already have { salt and hash }
         res.send({ token });
 
     } catch (err) {
@@ -23,7 +23,7 @@ router.post('/signup', async (req, res)=> {
 
 // signin authentication
 router.post('/signin', async (req, res)=> {
-    const { email, password } = req.body;
+    const { email, password } = req.body; //get information from the body
 
     if (!email || !password) {
         return res.status(422).send({ error: 'Must provide email and passowrd'})

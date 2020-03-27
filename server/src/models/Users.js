@@ -3,13 +3,11 @@ const bcrypt = require('bcrypt');
 
 
 const userSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId
-    },
     email: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
     password: {
         type: String, 
@@ -53,10 +51,9 @@ userSchema.methods.comparePassword = function (candidatePassword) {
             if (!isMatch) {
                 return reject(false);
             }
-
             resolve(true);
         });
     });
 }
 
-module.exports = mongoose.model('User', userSchema);
+mongoose.model('User', userSchema);

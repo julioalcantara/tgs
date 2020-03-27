@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require( 'express');
 const mongoose = require('mongoose');
-const Profile = require('../models/Profile'); 
-const User = require('../models/Users'); 
+const requireAuth = require('../middlewares/requireAuth');
+const Profile = mongoose.model('Profile');
 
 const router = express.Router();
 
-router.post('/', (req, res, next)=> {
+router.post('/profile', requireAuth, (req, res)=> {
     const profile = new Profile({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -18,12 +18,12 @@ router.post('/', (req, res, next)=> {
             res.status(201).json({
                 message: "User created suscessfully ",
                 createdProfile: {
-                    _id: result._id,
                     name: result.name,
-                    phone: result.phone,                    
+                    phone: result.phone,
+                    _id: result._id,
                     request: {
                         type: 'GET',
-                        url: "http://localhost:3000/Profile/" + result._id
+                        url: "http://localhost:3000/profile/" + result._id
                     }
                 }
             });
@@ -32,10 +32,10 @@ router.post('/', (req, res, next)=> {
             res.status(500).json({
                 error: err
             })
-        })
-});
+    })
+}); 
 
-router.get('/', (req, res, next) => {
+router.get('/profile', requireAuth, (req, res) => {
     Profile.find()
         .select('name phone _id')
         .exec()
@@ -49,7 +49,7 @@ router.get('/', (req, res, next) => {
                         _id: docs._id,
                         request: {
                             type: 'GET',
-                            url: "http://localhost:3000/Profile/" + docs._id
+                            url: "http://localhost:3000/profile/" + docs._id
                         }
                     }
                 })
@@ -61,11 +61,10 @@ router.get('/', (req, res, next) => {
             res.status(500).json({
                 error: err
             });
-        });
+        })
 });
 
-
-router.get('/:profileId', (req, res, next)=> {
+router.get('/profile/:profileId', requireAuth, (req, res)=> {
     const id = req.params.profileId;
     Profile.findById(id)
         .select('name phone _id')
@@ -85,22 +84,18 @@ router.get('/:profileId', (req, res, next)=> {
         }); 
 });
 
-router.patch('/:profileId', (req, res, next)=> {
+router.patch('/profile/:profileId', requireAuth,(req, res)=> {
     const id = req.params.profileId;
-    const updateProf = {};
-    for(const prof of req.body) {
-        updateProf[prof.propName] = prof.value;
-    }
-    Profile.update({ _id: id }, {$set: updateOps})
+    const updateProfile = req.body;
+    Profile.update({ _id: id }, {$set: updateProfile})
         .exec()
         .then( result => {
             res.status(200).json({
-                message: 'user updated',
+                message: 'profile updated',
                 request: {
                     type: 'GET',
-                    url: "http://localhost:3000/Profile/" + result._id
+                    url: "http://localhost:3000/profiles/" + id
                 }
-            
             });
         })
         .catch(err => {
@@ -110,16 +105,16 @@ router.patch('/:profileId', (req, res, next)=> {
         });
 });
 
-router.delete('/:profileId', (req, res, next)=> {
+router.delete('/profile/:profileId', requireAuth, (req, res)=> {
     const id = req.params.profileId;
-    User.remove({ _id: id })
+    Profile.remove({ _id: id })
         .exec()
         .then( result => {
             res.status(200).json({
                 message: 'Product deleted',
                 request: {
                     type: 'POST',
-                    url: "http://localhost:3000/Profile/",
+                    url: "http://localhost:3000/profile/",
                     body: { name: 'String', phone: 'String'}
                 }
             });
@@ -128,7 +123,8 @@ router.delete('/:profileId', (req, res, next)=> {
             res.status(500).json({
                 error: err
             })
-        });
-});
+        })
+    });
+
 
 module.exports = router;
