@@ -1,14 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Booking = require('../models/Booking');
-const User = require('../models/Users'); 
+const Profile = require('../models/Profile'); 
 
 
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
     Booking.find()
-    .populate('userId', 'name') // populate the booking schema with the user info
+    .populate('profileId', 'name') // populate the booking schema with the user info
     .exec()
     .then(docs => {
         res.status(200).json({
@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
             bookings: docs.map(docs => {
                 return {
                     _id: docs._id,
-                    userId: docs.userId,
+                    profileId: docs.profileId,
                     checkin: docs.checkin,
                     checkout: docs.checkout,
                     request: {
@@ -36,16 +36,16 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next)=> {
-    User.findById( req.body.userId)
-        .then(userId => {
-            if(!userId){
+    Profile.findById( req.body.profileId)
+        .then(profileId => {
+            if(!profileId){
                 return res.status(404).json({
                     message: 'User not found'
                 })
             }
             const booking = new Booking({
                 _id: mongoose.Types.ObjectId(),
-                userId: req.body.userId,
+                profileId: req.body.profileId,
                 checkin: req.body.checkin,
                 checkout: req.body.checkout
             });
@@ -55,7 +55,7 @@ router.post('/', (req, res, next)=> {
             res.status(200).json({
                 message: 'Booking was created',
                 id: result._id,
-                userId: result.userId,
+                profileId: result.profileId,
                 checkin: result.checkin,
                 checkout: result.checkout,
                 request: {
@@ -71,9 +71,10 @@ router.post('/', (req, res, next)=> {
             });
 });
 
+
 router.get('/:bookingId', (req, res, next)=> {
     Booking.findById(req.params.bookingId)
-        .populate('userId') // populate the booking schema with the user info
+        .populate('profileId') // populate the booking schema with the user info
         .exec()
         .then(booking => {
             if(!booking){

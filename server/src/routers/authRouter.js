@@ -7,10 +7,10 @@ const router = express.Router();
 
 //define a route  ->  https://expressjs.com/en/guide/routing.html
 router.post('/signup', async (req, res)=> {
-    const { email, password } = req.body;
+    const { _id, email, password } = req.body;
 
     try{
-        const user = new User({ email, password});
+        const user = new User({ _id, email, password});
         await user.save();
 
         const token = jwt.sign({ userId: user._id}, 'MY_SECRET_KEY');

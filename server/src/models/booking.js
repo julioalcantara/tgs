@@ -3,15 +3,18 @@ const mongoose = require('mongoose');
 const bookingSchema = new mongoose.Schema({
         _id: mongoose.Schema.Types.ObjectId,
 
-        userId: {
+        profileId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User' 
+            ref: 'Profile',
+            required: true 
         },
         checkin: {
-           type: String
+           type: String,
+           required: true
         }, 
         checkout: {
-           type: String
+           type: String,
+           required: true
         }
      
 });

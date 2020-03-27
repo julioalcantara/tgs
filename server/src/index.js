@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require ('mongoose');
 const authRouter = require('./routers/authRouter');
 const bookingRouter = require('./routers/bookingRouter');
+const profileRouter = require('./routers/profileRouter');
 const requireAuth = require('./middlewares/requireAuth');
 
 
@@ -13,8 +14,9 @@ const admin = express(); // the sub app -> https://expressjs.com/en/4x/api.html#
 
 app.use(bodyParser.json());
 app.use(authRouter);
+app.use('/profiles', profileRouter);
 app.use('/bookings', bookingRouter);
-app.use('/admin', admin); //mount the sub app
+//app.use('/admin', admin); //mount the sub app
 
 const mongoUri = 'mongodb+srv://Admin:Admin@tgs-qhwpm.mongodb.net/tgs?retryWrites=true&w=majority';
 mongoose.connect(mongoUri, {
@@ -36,9 +38,9 @@ app.get('/', requireAuth, (req, res) => {
 });
 
 //admin
-admin.get('/', requireAuth, (req, res)=> {
-    res.send('admin Home paige ');
-});
+// admin.get('/', requireAuth, (req, res)=> {
+//     res.send('admin Home paige ');
+// });
 
 app.listen(3000, () => {
     console.log('Listening on port 3000');
