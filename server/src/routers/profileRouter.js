@@ -1,6 +1,8 @@
 const express = require( 'express');
 const mongoose = require('mongoose');
+
 const requireAuth = require('../middlewares/requireAuth');
+
 const Profile = mongoose.model('Profile');
 
 const router = express.Router();
@@ -72,7 +74,7 @@ router.get('/profile/:profileId', requireAuth, (req, res)=> {
         .then(docs => {
             if(docs){
                 res.status(200).json({
-                    user: docs
+                    profile: docs
                 });
             } else {
                 res.status(404).json({message:'Invalid Id'})
@@ -125,6 +127,5 @@ router.delete('/profile/:profileId', requireAuth, (req, res)=> {
             })
         })
     });
-
 
 module.exports = router;

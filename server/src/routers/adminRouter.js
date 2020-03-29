@@ -1,6 +1,7 @@
 const express = require( 'express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+
 const Admin = mongoose.model('Admin');
 
 const router = express.Router();

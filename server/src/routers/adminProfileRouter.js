@@ -1,11 +1,13 @@
 const express = require( 'express');
 const mongoose = require('mongoose');
+
 const adminAuth = require('../middlewares/adminAuth');
+
 const AdminProfile = mongoose.model('AdminProfile');
 
 const router = express.Router();
 
-router.post('/profile', (req, res)=> {
+router.post('/adminProfile', adminAuth, (req, res)=> {
     const adminProfile = new AdminProfile({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -23,7 +25,7 @@ router.post('/profile', (req, res)=> {
                     phone: result.phone,
                     request: {
                         type: 'GET',
-                        url: "http://localhost:3000/admin/profile/" + result._id
+                        url: "http://localhost:3000/adminProfile/" + result._id
                     }
                 }
             });
@@ -36,7 +38,7 @@ router.post('/profile', (req, res)=> {
     })
 }); 
 
-router.get('/profile', adminAuth, (req, res) => {
+router.get('/adminProfile', adminAuth, (req, res) => {
     AdminProfile.find()
         .select('name phone _id')
         .exec()
@@ -50,7 +52,7 @@ router.get('/profile', adminAuth, (req, res) => {
                         phone: docs.phone,
                         request: {
                             type: 'GET',
-                            url: "http://localhost:3000/admin/profile/" + docs._id
+                            url: "http://localhost:3000/adminProfile/" + docs._id
                         }
                     }
                 })
@@ -66,7 +68,7 @@ router.get('/profile', adminAuth, (req, res) => {
         })
 });
 
-router.get('/profile/:profileId', adminAuth, (req, res)=> {
+router.get('/adminProfile/:profileId', adminAuth, (req, res)=> {
     const id = req.params.profileId;
     AdminProfile.findById(id)
         .select('name phone _id')
@@ -74,7 +76,7 @@ router.get('/profile/:profileId', adminAuth, (req, res)=> {
         .then(docs => {
             if(docs){
                 res.status(200).json({
-                    profile: docs
+                    admin: docs
                 });
             } else {
                 res.status(404).json({message:'Invalid Id'})
@@ -86,7 +88,7 @@ router.get('/profile/:profileId', adminAuth, (req, res)=> {
         }); 
 });
 
-router.patch('/profile/:profileId', requireAuth,(req, res)=> {
+router.patch('/adminProfile/:profileId', adminAuth,(req, res)=> {
     const id = req.params.profileId;
     const updateProfile = req.body;
     AdminProfile.update({ _id: id }, {$set: updateProfile})
@@ -96,7 +98,7 @@ router.patch('/profile/:profileId', requireAuth,(req, res)=> {
                 message: 'profile updated',
                 request: {
                     type: 'GET',
-                    url: "http://localhost:3000/admin/profiles/" + id
+                    url: "http://localhost:3000/adminProfiles/" + id
                 }
             });
         })
@@ -107,16 +109,16 @@ router.patch('/profile/:profileId', requireAuth,(req, res)=> {
         });
 });
 
-router.delete('/profile/:profileId', adminAuth, (req, res)=> {
+router.delete('/adminProfile/:profileId', adminAuth, (req, res)=> {
     const id = req.params.profileId;
     AdminProfile.remove({ _id: id })
-        .exec()
+        .exec() 
         .then( result => {
             res.status(200).json({
                 message: 'Product deleted',
                 request: {
                     type: 'POST',
-                    url: "http://localhost:3000/admin/profile/",
+                    url: "http://localhost:3000/adminProfile/",
                     body: { name: 'String', phone: 'String'}
                 }
             });

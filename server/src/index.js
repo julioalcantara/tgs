@@ -1,6 +1,7 @@
 require('./models/Users');
 require('./models/Admin');
 require('./models/Profile');
+require('./models/AdminProfile');
 require('./models/Booking');
 
 const express = require('express');
@@ -11,6 +12,8 @@ const authRouter = require('./routers/authRouter');
 const bookingRouter = require('./routers/bookingRouter');
 const profileRouter = require('./routers/profileRouter');
 const adminRouter = require('./routers/adminRouter');
+const adminProfileRouter = require('./routers/adminProfileRouter');
+
 const requireAuth = require('./middlewares/requireAuth');
 const adminAuth = require('./middlewares/adminAuth');
 
@@ -21,6 +24,7 @@ app.use(authRouter);
 app.use(profileRouter);
 app.use(bookingRouter);
 app.use('/admin', adminRouter);
+app.use(adminProfileRouter);
 
 const mongoUri = 'mongodb+srv://Admin:Admin@tgs-qhwpm.mongodb.net/tgs?retryWrites=true&w=majority';
 mongoose.connect(mongoUri, {

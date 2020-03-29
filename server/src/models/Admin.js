@@ -46,7 +46,6 @@ adminSchema.methods.comparePassword = function (adminPassword) {
             if (err) {
                 return reject(err);
             }
-
             if (!isMatch) {
                 return reject(false);
             }

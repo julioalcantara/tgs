@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const requireAuth = require('../middlewares/requireAuth');
+
 const Booking = mongoose.model('Booking');
 const Profile = mongoose.model('Profile'); 
+
+const requireAuth = require('../middlewares/requireAuth');
 
 const router = express.Router();
 
@@ -93,7 +95,6 @@ router.get('/booking/:bookingId', requireAuth ,(req, res)=> {
                 error: err
             })
         });
-
 });
 
 router.patch('/booking/:bookingId', requireAuth,(req, res)=> {
@@ -135,7 +136,6 @@ router.delete('/booking/:bookingId', requireAuth, (req, res)=> {
                 error: err
             })
         });
-
 });
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require( 'express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+
 const User = mongoose.model('User');
 
 const router = express.Router();
@@ -43,6 +44,5 @@ router.post('/signin', async (req, res)=> {
         return res.status(422).send({ error: 'Invalide password or email'});
     }  
 });
-
 
 module.exports = router;

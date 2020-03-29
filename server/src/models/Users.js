@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-
 const userSchema = new mongoose.Schema({
     email: { 
         type: String,
@@ -47,7 +46,6 @@ userSchema.methods.comparePassword = function (candidatePassword) {
             if (err) {
                 return reject(err);
             }
-
             if (!isMatch) {
                 return reject(false);
             }
