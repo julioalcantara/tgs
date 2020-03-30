@@ -2,13 +2,15 @@ import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Image, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
-import Spacer from '../components/Spacer';
 import { Context as AuthContext } from '../context/AuthContext';
 
 const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
     return (
         <SafeAreaView style={styles.container}>
+            <View>
+                
+            </View>
             <View style={styles.imageStyle}>
                 <Image
                     source={ require('../images/logo2.png')}

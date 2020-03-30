@@ -4,7 +4,7 @@ import dataBaseApi from '../api/dataBase';
 import { navigate } from '../navigationRef';
 
 const authReducer = ( state, action ) => {
-    switch (action.type) {
+    switch (action.type) { 
         case 'add_error': 
             return { ...state, errorMessage: action.payload };
         case 'signin':
@@ -13,6 +13,8 @@ const authReducer = ( state, action ) => {
             return { ...state, errorMessage: ''};
         case 'signout':
             return { token: null, errorMessage: ''};
+        case 'createProfile':
+            return { errorMessage: '', token: action.payload };
 
         default: 
             return state;
@@ -23,7 +25,7 @@ const tryLocalSignin = dispatch => async () => {
     const token = await AsyncStorage.getItem('token');
     if (token) {
         dispatch ({ type: 'signin', payload: token });
-        navigate('Main');
+        navigate('createProfile');
     } else {
         navigate('Signup');
     }
@@ -32,7 +34,7 @@ const tryLocalSignin = dispatch => async () => {
 const cleanErrorMessage = dispatch => () => {
     dispatch({ type: 'clean_error_message'});
 }
-
+ 
 const signup = (dispatch) => async ({ email, password }) => {
     //make an Api request to sign up with taht email and password
     //if user sign up, modify the state, and say that he is autheticated
@@ -45,8 +47,7 @@ const signup = (dispatch) => async ({ email, password }) => {
             payload: response.data.token 
         });
         // navigte to main flow
-        navigate('Main');
-
+        navigate('createProfile');
     } catch (err) {
         dispatch ({ 
             type: 'add_error', 
@@ -66,8 +67,6 @@ const signin = (dispatch) => async ({ email, password }) => {
                 payload: response.data.token
              });
              navigate('Main');
-
-
         } catch(err) {
             dispatch({
                 type: 'add_error',
@@ -82,8 +81,31 @@ const signout = dispatch => async ()=> {
     navigate('loginFlow');
 };
 
+const createProfile = (dispatch) => async ({ name, phone }) => {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+        try{
+            const response = await dataBaseApi.post('/profile', { name, phone });
+            dispatch({ 
+                type: 'createProfile', 
+                payload: response.data.token 
+            });
+            console.log("User Created a Profile");
+            // navigte to main flow
+            navigate('Profile');
+    
+        } catch (err) {
+            dispatch ({ 
+                type: 'add_error', 
+                payload: 'Something went wrong at creating your profile' })
+        }
+    }
+   
+};
+
+
 export const { Provider, Context } = CreateDataConxtext(
     authReducer,
-    { signin, signout, signup, cleanErrorMessage, tryLocalSignin },
+    { signin, signout, signup, cleanErrorMessage, tryLocalSignin, createProfile },
     { token: null, errorMessage: '' }
 ); 

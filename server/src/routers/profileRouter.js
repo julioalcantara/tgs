@@ -7,7 +7,7 @@ const Profile = mongoose.model('Profile');
 
 const router = express.Router();
 
-router.post('/profile', requireAuth, (req, res)=> {
+router.post('/profile', (req, res)=> {
     const profile = new Profile({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,

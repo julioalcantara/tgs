@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(authRouter);
 app.use(profileRouter);
 app.use(bookingRouter);
-app.use('/admin', adminRouter);
+app.use(adminRouter);
 app.use(adminProfileRouter);
 
 const mongoUri = 'mongodb+srv://Admin:Admin@tgs-qhwpm.mongodb.net/tgs?retryWrites=true&w=majority';
@@ -43,9 +43,9 @@ app.get('/', requireAuth, (req, res) => {
     res.send(`Your id is: ${req.user._id}`);
 });
 
-app.get('/admin', adminAuth, (req, res) => {
-    res.send(`Your id is: ${req.user._id}`);
-});
+// app.get('/admin', adminAuth, (req, res) => {
+//     res.send(`Your id is: ${req.user._id}`);
+// });
 
 app.listen(3000, () => {
     console.log('Listening on port 3000');

@@ -15,7 +15,7 @@ const SigninScreen = () => {
                 headerText = "Sign in to your account"
                 errorMessage = {state.errorMessage}
                 submitButtonText = "Sign in"
-                onSubmit = {signin}
+                onSubmit = {signin} 
             />
             <NavLink 
                 text = "Don't have an account? Sing up instead!"
