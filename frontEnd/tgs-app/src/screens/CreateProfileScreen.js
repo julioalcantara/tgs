@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
-import ProfileForm from '../components/ProfileForm';
+import ProfileCreateForm from '../components/ProfileCreateForm';
 import { Context as AuthContext } from '../context/AuthContext';
 
 const CreateProfileScreen = () => {
@@ -9,12 +9,12 @@ const CreateProfileScreen = () => {
     return (
         <View style = {styles.container}>
             <NavigationEvents onWillBlur = { cleanErrorMessage } />
-            <ProfileForm 
+            <ProfileCreateForm 
                 headerText = 'Create Profile'
                 submitButtonText = 'Submit'
                 errorMessage = {state.errorMessage}
                 onSubmit = {createProfile}
-            />              
+            />               
         </View>
     );
 }

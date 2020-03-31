@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import Spacer from './Spacer';
 
-const ProfileForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+const ProfileCreateForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     return (
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ProfileForm;    
+export default ProfileCreateForm;    

@@ -37,7 +37,7 @@ router.post('/profile', (req, res)=> {
     })
 }); 
 
-router.get('/profile', requireAuth, (req, res) => {
+router.get('/profile', (req, res) => {
     Profile.find()
         .select('name phone _id')
         .exec()
@@ -66,9 +66,9 @@ router.get('/profile', requireAuth, (req, res) => {
         })
 });
 
-router.get('/profile/:profileId', requireAuth, (req, res)=> {
-    const id = req.params.profileId;
-    Profile.findById(id)
+router.get('/profile/:profileId', (req, res)=> {
+    const profileId = req.params.profileId;
+    Profile.findById(profileId)
         .select('name phone _id')
         .exec()
         .then(docs => {
@@ -86,17 +86,17 @@ router.get('/profile/:profileId', requireAuth, (req, res)=> {
         }); 
 });
 
-router.patch('/profile/:profileId', requireAuth,(req, res)=> {
-    const id = req.params.profileId;
+router.patch('/profile/:profileId',(req, res)=> {
+    const profileId = req.params.profileId;
     const updateProfile = req.body;
-    Profile.update({ _id: id }, {$set: updateProfile})
+    Profile.update({ _id: profileId }, {$set: updateProfile})
         .exec()
         .then( result => {
             res.status(200).json({
                 message: 'profile updated',
                 request: {
                     type: 'GET',
-                    url: "http://localhost:3000/profiles/" + id
+                    url: "http://localhost:3000/profiles/" + profileId
                 }
             });
         })
@@ -107,9 +107,9 @@ router.patch('/profile/:profileId', requireAuth,(req, res)=> {
         });
 });
 
-router.delete('/profile/:profileId', requireAuth, (req, res)=> {
-    const id = req.params.profileId;
-    Profile.remove({ _id: id })
+router.delete('/profile/:profileId', (req, res)=> {
+    const profileId = req.params.profileId;
+    Profile.remove({ _id: profileId })
         .exec()
         .then( result => {
             res.status(200).json({

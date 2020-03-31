@@ -81,7 +81,7 @@ const signout = dispatch => async ()=> {
     navigate('loginFlow');
 };
 
-const createProfile = (dispatch) => async ({ name, phone }) => {
+const createProfile = (dispatch) => async ({name, phone }) => {
     const token = await AsyncStorage.getItem('token');
     if (token) {
         try{
@@ -89,10 +89,11 @@ const createProfile = (dispatch) => async ({ name, phone }) => {
             dispatch({ 
                 type: 'createProfile', 
                 payload: response.data.token 
-            });
+            });    
             console.log("User Created a Profile");
+            console.log(name)
             // navigte to main flow
-            navigate('Profile');
+            navigate('Profile', name);
     
         } catch (err) {
             dispatch ({ 
