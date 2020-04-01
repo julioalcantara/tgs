@@ -1,17 +1,24 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Image, Button } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
-import { SafeAreaView } from 'react-navigation';
-import { Context as AuthContext } from '../context/AuthContext';
+import { navigate } from '../navigationRef';
+import { Context as AuthContext } from '../context/AuthContext'
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
-
+    // const { getProfile } = useContext(AuthContext);
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Text>{navigation.getParam('name')}</Text>
+                <Text>hi</Text>
+                <FlatList 
+                    data={getProfile}
+                    keyExtractor={getProfileData =>getProfileData.name}
+                    renderItem={({item}) => {
+                        return <Text>{item.name}</Text>
+                    }}
+                />
             </View>
             <View style={styles.imageStyle}>
                 <Image

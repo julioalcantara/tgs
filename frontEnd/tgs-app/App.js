@@ -25,7 +25,7 @@ const switchNavigator = createSwitchNavigator ({
     Home: createStackNavigator ({
       Main: HomeScreen,
       DatesAvailable: DatesAvailableScreen,
-      createProfile: CreateProfileScreen
+      CreateProfile: CreateProfileScreen
     }),
     Studio: StudioProfileScreen,
     Profile: ProfileScreen

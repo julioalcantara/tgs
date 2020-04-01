@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 
 export default  (reducer, actions, defaultValue) => {
-    const Context = React.createContext();
+    const Context = React.createContext(); // context is been used to move data around 
 
     const Provider = ({ children }) => {
         const [state, dispatch] = useReducer(reducer, defaultValue);

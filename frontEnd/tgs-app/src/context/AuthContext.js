@@ -15,7 +15,6 @@ const authReducer = ( state, action ) => {
             return { token: null, errorMessage: ''};
         case 'createProfile':
             return { errorMessage: '', token: action.payload };
-
         default: 
             return state;
     }
@@ -25,7 +24,7 @@ const tryLocalSignin = dispatch => async () => {
     const token = await AsyncStorage.getItem('token');
     if (token) {
         dispatch ({ type: 'signin', payload: token });
-        navigate('createProfile');
+        navigate('CreateProfile');
     } else {
         navigate('Signup');
     }
@@ -47,7 +46,7 @@ const signup = (dispatch) => async ({ email, password }) => {
             payload: response.data.token 
         });
         // navigte to main flow
-        navigate('createProfile');
+        navigate('CreateProfile');
     } catch (err) {
         dispatch ({ 
             type: 'add_error', 
@@ -89,11 +88,11 @@ const createProfile = (dispatch) => async ({name, phone }) => {
             dispatch({ 
                 type: 'createProfile', 
                 payload: response.data.token 
-            });    
+                
+            });  
             console.log("User Created a Profile");
-            console.log(name)
-            // navigte to main flow
-            navigate('Profile', name);
+            console.log(token);
+            navigate('Profile');
     
         } catch (err) {
             dispatch ({ 
@@ -101,12 +100,34 @@ const createProfile = (dispatch) => async ({name, phone }) => {
                 payload: 'Something went wrong at creating your profile' })
         }
     }
-   
+};
+const getProfile = (dispatch) => async (name, phone) => {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+        try{
+            const getProfile = await dataBaseApi.get('/profile', { name, phone });
+            const profileId = getProfile.data.profiles[0]._id;
+            const profileName = getProfile.data.profiles[0].name;
+            dispatch({ 
+                type: 'createProfile', 
+                payload: response1.data.token 
+                
+            }); 
+            
+            console.log(profileId);
+            console.log(profileName);
+    
+        } catch (err) {
+            dispatch ({ 
+                type: 'add_error', 
+                payload: 'Something went wrong at creating your profile' })
+        }
+    }
 };
 
 
 export const { Provider, Context } = CreateDataConxtext(
     authReducer,
-    { signin, signout, signup, cleanErrorMessage, tryLocalSignin, createProfile },
+    { signin, signout, signup, cleanErrorMessage, tryLocalSignin, createProfile, getProfile },
     { token: null, errorMessage: '' }
 ); 
