@@ -8,7 +8,7 @@ export default  (reducer, actions, defaultValue) => {
 
         const boundActions = {};
         for (let key in actions) {
-            boundActions[key] = actions[key](dispatch);
+            boundActions[key] = actions[key](dispatch); //for more info visit: https://www.udemy.com/course/the-complete-react-native-and-redux-course/learn/lecture/15707494#overview
         }
         return (
             <Context.Provider value = {{ state, ...boundActions }}>

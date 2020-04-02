@@ -15,6 +15,8 @@ const authReducer = ( state, action ) => {
             return { token: null, errorMessage: ''};
         case 'createProfile':
             return { errorMessage: '', token: action.payload };
+        case 'getPost':
+            return { errorMessage: '', id: action.payload}
         default: 
             return state;
     }
@@ -101,16 +103,16 @@ const createProfile = (dispatch) => async ({name, phone }) => {
         }
     }
 };
-const getProfile = (dispatch) => async (name, phone) => {
+const getProfile = (dispatch) => async () => {
     const token = await AsyncStorage.getItem('token');
     if (token) {
         try{
-            const getProfile = await dataBaseApi.get('/profile', { name, phone });
+            const getProfile = await dataBaseApi.get('/profile');
             const profileId = getProfile.data.profiles[0]._id;
             const profileName = getProfile.data.profiles[0].name;
             dispatch({ 
                 type: 'createProfile', 
-                payload: response1.data.token 
+                payload: response1.data.id 
                 
             }); 
             
