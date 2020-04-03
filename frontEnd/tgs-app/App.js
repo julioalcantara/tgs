@@ -13,6 +13,8 @@ import DatesAvailableScreen from './src/screens/DatesAvailableScreen';
 import IntroScreen from './src/screens/IntroScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
+import { Provider as ProfileProvider } from './src/context/ProfileContext';
+
 import { setNavigator } from './src/navigationRef';
 
 const switchNavigator = createSwitchNavigator ({
@@ -37,7 +39,9 @@ const App = createAppContainer(switchNavigator);
 export default () => {
   return (
     <AuthProvider>
-      <App ref={(navigator) => { setNavigator(navigator) }} />
+        <ProfileProvider>
+            <App ref={(navigator) => { setNavigator(navigator) }} /> 
+        </ProfileProvider>
     </AuthProvider>
   );
 };

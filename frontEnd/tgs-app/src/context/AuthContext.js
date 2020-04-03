@@ -1,7 +1,10 @@
+// provider must be presente on the app.js when is been called
+
 import { AsyncStorage } from 'react-native';
 import CreateDataConxtext from './CreateDataContext';
 import dataBaseApi from '../api/dataBase';
 import { navigate } from '../navigationRef';
+
 
 const authReducer = ( state, action ) => {
     switch (action.type) { 
@@ -13,10 +16,7 @@ const authReducer = ( state, action ) => {
             return { ...state, errorMessage: ''};
         case 'signout':
             return { token: null, errorMessage: ''};
-        case 'createProfile':
-            return { errorMessage: '', token: action.payload };
-        case 'getPost':
-            return { errorMessage: '', id: action.payload}
+            
         default: 
             return state;
     }
@@ -57,9 +57,6 @@ const signup = (dispatch) => async ({ email, password }) => {
 };
 
 const signin = (dispatch) => async ({ email, password }) => {
-        //try to sign in
-        //handle success by updating state
-        //handle failure by showing error message 
         try {
             const response = await dataBaseApi.post('/signin', {email, password});
             await AsyncStorage.setItem('token', response.data.token);
@@ -67,7 +64,7 @@ const signin = (dispatch) => async ({ email, password }) => {
                 type: 'signin',
                 payload: response.data.token
              });
-             navigate('Main');
+             navigate('CreateProfile');
         } catch(err) {
             dispatch({
                 type: 'add_error',
@@ -82,54 +79,8 @@ const signout = dispatch => async ()=> {
     navigate('loginFlow');
 };
 
-const createProfile = (dispatch) => async ({name, phone }) => {
-    const token = await AsyncStorage.getItem('token');
-    if (token) {
-        try{
-            const response = await dataBaseApi.post('/profile', { name, phone });
-            dispatch({ 
-                type: 'createProfile', 
-                payload: response.data.token 
-                
-            });  
-            console.log("User Created a Profile");
-            console.log(token);
-            navigate('Profile');
-    
-        } catch (err) {
-            dispatch ({ 
-                type: 'add_error', 
-                payload: 'Something went wrong at creating your profile' })
-        }
-    }
-};
-const getProfile = (dispatch) => async () => {
-    const token = await AsyncStorage.getItem('token');
-    if (token) {
-        try{
-            const getProfile = await dataBaseApi.get('/profile');
-            const profileId = getProfile.data.profiles[0]._id;
-            const profileName = getProfile.data.profiles[0].name;
-            dispatch({ 
-                type: 'createProfile', 
-                payload: response1.data.id 
-                
-            }); 
-            
-            console.log(profileId);
-            console.log(profileName);
-    
-        } catch (err) {
-            dispatch ({ 
-                type: 'add_error', 
-                payload: 'Something went wrong at creating your profile' })
-        }
-    }
-};
-
-
 export const { Provider, Context } = CreateDataConxtext(
     authReducer,
-    { signin, signout, signup, cleanErrorMessage, tryLocalSignin, createProfile, getProfile },
+    { signin, signout, signup, cleanErrorMessage, tryLocalSignin },
     { token: null, errorMessage: '' }
 ); 

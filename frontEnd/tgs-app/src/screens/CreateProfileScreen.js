@@ -4,9 +4,11 @@ import { Button } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 import ProfileCreateForm from '../components/ProfileCreateForm';
 import { Context as AuthContext } from '../context/AuthContext';
+import { Context as ProfileContext } from '../context/ProfileContext';
 
-const CreateProfileScreen = ({ navigation }) => {
-   const { state, createProfile, cleanErrorMessage } = useContext(AuthContext);
+const CreateProfileScreen = () => {
+   const { state, cleanErrorMessage } = useContext(AuthContext);
+   const {createProfile, getProfile, getProfileById } = useContext(ProfileContext);
     return (
         <View style = {styles.container}>
             <NavigationEvents onWillBlur = { cleanErrorMessage } />
@@ -15,7 +17,9 @@ const CreateProfileScreen = ({ navigation }) => {
                 submitButtonText = 'Submit'
                 errorMessage = {state.errorMessage}
                 onSubmit = {createProfile}
-            />                        
+            />  
+            <Button title = "Get Data" onPress = {getProfile}/>  
+            <Button title = "id Data" onPress = {getProfileById}/>                       
         </View>
     );
 }
