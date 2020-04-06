@@ -21,13 +21,13 @@ const switchNavigator = createSwitchNavigator ({
   Intro: IntroScreen,
   loginFlow: createStackNavigator ({
     Signin: SigninScreen,
-    Signup: SignupScreen
+    Signup: SignupScreen,
+    CreateProfile: CreateProfileScreen
   }),
   mainFlow: createBottomTabNavigator ({
     Home: createStackNavigator ({
       Main: HomeScreen,
-      DatesAvailable: DatesAvailableScreen,
-      CreateProfile: CreateProfileScreen
+      DatesAvailable: DatesAvailableScreen      
     }),
     Studio: StudioProfileScreen,
     Profile: ProfileScreen
@@ -38,10 +38,10 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <AuthProvider>
-        <ProfileProvider>
-            <App ref={(navigator) => { setNavigator(navigator) }} /> 
-        </ProfileProvider>
-    </AuthProvider>
+    <ProfileProvider>
+      <AuthProvider>
+          <App ref={(navigator) => { setNavigator(navigator) }} /> 
+      </AuthProvider>
+    </ProfileProvider>
   );
 };

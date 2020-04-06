@@ -12,17 +12,7 @@ const profileReducer = ( state, action ) => {
         case 'clean_error_message':
             return { ...state, errorMessage: ''};
         case 'createProfile':
-            return { errorMessage: '', token: action.payload };
-        case 'getProfile':
-            return action.payload;
-        case 'editProfile':
-            return state.map((token) => {
-                if(token.id === action.payload.id){
-                    return action.payload;
-                } else {
-                    return token;
-                }
-            })
+            return { ...state, currentUser: action.payload };
         default: 
             return state;
     }
@@ -33,18 +23,18 @@ const cleanErrorMessage = dispatch => () => {
 }
 
 const createProfile = (dispatch) => async ({name, phone }) => {
-    const token = await AsyncStorage.getItem('token');
+    // use user token to create a profile
+    const token = await AsyncStorage.getItem('token'); 
     if (token) {
         try{
             const response = await dataBaseApi.post('/profile', { name, phone });
-            //await AsyncStorage.setItem('_id', response.data);
-            dispatch({ // the dispatch can be delited. 
+            dispatch({ 
                 type: 'createProfile', 
                 payload: response.data
                 
             });  
             console.log("User Created a Profile");
-            navigate('Profile', {name});
+            navigate('Main');
     
         } catch (err) {
             dispatch ({ 
@@ -56,23 +46,11 @@ const createProfile = (dispatch) => async ({name, phone }) => {
 const getProfile = (dispatch) => async () => {
         try{
             const response = await dataBaseApi.get('/profile');
-            
-            const id = await dataBaseApi.filter('_id');
-            
-            //const profileId = response.data.profiles[0]._id;
-            
-            //const getId = await AsyncStorage.setItem('_id');
-            // const profileName = getProfile.data.profiles[0].name;
-
             dispatch({ 
-                type: 'getProfile', 
+                type: 'createProfile', 
                 payload: response.data
                 
             }); 
-            console.log(id);
-            //console.log(response);
-            //console.log(profileId);
-            // console.log(profileName);
     
         } catch (err) {
             dispatch ({ 
@@ -82,19 +60,17 @@ const getProfile = (dispatch) => async () => {
 };
 
 const getProfileById = (dispatch) => async () => {
-    //const id = await AsyncStorage.getItem('_id');
-    //const id = '5e84d5f481805744742dab43'
-    const response = await dataBaseApi.get(`/profile/${id}`);
+
+    const response = await dataBaseApi.get(`/profile/`);
     dispatch({ 
-        type: 'getProfile', 
+        type: 'createProfile', 
         payload: response.data
-        
     }); 
-    console.log(id);
+
 };
 
 export const { Provider, Context } = CreateDataConxtext(
     profileReducer,
     { cleanErrorMessage, createProfile, getProfile, getProfileById },
-    { errorMessage: '' }
+    { errorMessage: '', currentUser: null }
 ); 

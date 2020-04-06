@@ -1,20 +1,23 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View, Text, FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
 import { Image, Button } from 'react-native-elements';
-import { NavigationEvents } from 'react-navigation';
-import { navigate } from '../navigationRef';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ProfileContext } from '../context/ProfileContext';
 
 const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
-    const {createProfile, getProfile, getProfileById } = useContext(ProfileContext);
-    // const { getProfile } = useContext(AuthContext);
-    const name = navigate.getParam('name');
+    const {state: {currentUser}, getProfile, getProfileById } = useContext(ProfileContext);
+
+    if(!currentUser)  {
+        //spinner
+        return <ActivityIndicator size="large" style={{marginTop: 200}} />
+    }
+
+    const name = currentUser.createdProfile.name;
+
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView  forceInset={{ top: 'always'}} style={styles.container}>
             <View>
-                <Text>hi</Text>
                 <Text>{name}</Text>
             </View>
             <View style={styles.imageStyle}>
@@ -27,8 +30,6 @@ const ProfileScreen = () => {
                 title= 'Sign out'
                 onPress={signout}
             />
-            <Button title = "Get Data" onPress = {getProfile}/>  
-            <Button title = "id Data" onPress = {getProfileById}/>   
         </SafeAreaView>
     );
 }
