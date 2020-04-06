@@ -6,11 +6,16 @@ import { Context as ProfileContext } from '../context/ProfileContext';
 
 const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
-    const {state: {currentUser}, getProfile, getProfileById } = useContext(ProfileContext);
+    const {state: {currentUser}} = useContext(ProfileContext);
 
     if(!currentUser)  {
+
+        <Button 
+            title= 'Sign out'
+            onPress={signout}
+        />
         //spinner
-        return <ActivityIndicator size="large" style={{marginTop: 200}} />
+        //return <ActivityIndicator size="large" style={{marginTop: 200}} />
     }
 
     const name = currentUser.createdProfile.name;

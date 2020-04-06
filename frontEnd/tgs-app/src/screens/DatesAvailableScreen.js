@@ -1,21 +1,22 @@
 import React, { useContext} from 'react';
 import {View, StyleSheet,Button} from 'react-native';
-import Calendarform from "../components/CalendarForm";
+
 import { Context } from "../context/BookingContext";
 import Spacer from '../components/Spacer';
+import BookingForm from '../components/BookingForm';
 
 const DatesAvailableScreen = () => {
-    //const { booking } = useContext(Context);
+    const { state, createBooking } = useContext(Context);
     
     return (
         <View style={styles.container}>
             <View style={styles.calendar}>
-                <Calendarform 
-                label="CHECK-IN" 
-                submitButtonText="Book"
-                //onSubmit = {console.log('hahaha')}
+                <BookingForm 
+                    headerText = "Booking"
+                    errorMessage = {state.errorMessage}
+                    submitButtonText = "Book"
+                    onSubmit = {createBooking}
                 />
-                
             </View>
             <Spacer />
            

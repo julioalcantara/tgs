@@ -14,6 +14,7 @@ import IntroScreen from './src/screens/IntroScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as ProfileProvider } from './src/context/ProfileContext';
+import { Provider as BookingProvider } from './src/context/BookingContext';
 
 import { setNavigator } from './src/navigationRef';
 
@@ -38,10 +39,13 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <ProfileProvider>
-      <AuthProvider>
-          <App ref={(navigator) => { setNavigator(navigator) }} /> 
-      </AuthProvider>
-    </ProfileProvider>
+    <BookingProvider>
+      <ProfileProvider>
+        <AuthProvider>
+            <App ref={(navigator) => { setNavigator(navigator) }} /> 
+        </AuthProvider>
+      </ProfileProvider>
+    </BookingProvider>
+    
   );
 };

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Image } from 'react-native-elements';
+import { Image, Button } from 'react-native-elements';
+
+import { Context as AuthContext } from '../context/AuthContext';
 
 const HomeScreen = ({ navigation }) => {
+    const { signout } = useContext(AuthContext);
 
     return (
         <View style={styles.container}>
@@ -11,6 +14,11 @@ const HomeScreen = ({ navigation }) => {
                 source={ require('../images/logo2.png')}
                 style={styles.imageStyle}
             />
+
+            <Button 
+            title= 'Sign out'
+            onPress={signout}
+        />
         </View>
     );
 }

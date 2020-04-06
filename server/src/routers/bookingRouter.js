@@ -37,7 +37,7 @@ router.get('/booking', (req, res) => {
 
 });
 
-router.post('/booking', requireAuth,  (req, res)=> {
+router.post('/booking',  (req, res)=> {
     Profile.findById( req.body.profileId)
         .then(profileId => {
             if(!profileId){
@@ -72,7 +72,7 @@ router.post('/booking', requireAuth,  (req, res)=> {
             });
 });
 
-router.get('/booking/:bookingId', requireAuth ,(req, res)=> {
+router.get('/booking/:bookingId' ,(req, res)=> {
     Booking.findById(req.params.bookingId)
         .populate('profileId') // populate the booking schema with the profile info
         .exec()
@@ -97,7 +97,7 @@ router.get('/booking/:bookingId', requireAuth ,(req, res)=> {
         });
 });
 
-router.patch('/booking/:bookingId', requireAuth,(req, res)=> {
+router.patch('/booking/:bookingId',(req, res)=> {
     const id = req.params.bookingId;
     const updateBooking = req.body;
     Booking.update({ _id: id }, {$set: updateBooking})
@@ -118,7 +118,7 @@ router.patch('/booking/:bookingId', requireAuth,(req, res)=> {
         });
 });
 
-router.delete('/booking/:bookingId', requireAuth, (req, res)=> {
+router.delete('/booking/:bookingId', (req, res)=> {
     Booking.remove({ _id: req.params.bookingId })
         .exec()
         .then(result => {

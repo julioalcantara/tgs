@@ -27,6 +27,7 @@ const tryLocalSignin = dispatch => async () => {
     if (token) {
         dispatch ({ type: 'signin', payload: token });
         navigate('CreateProfile');
+        
     } else {
         navigate('Signup');
     }
@@ -64,7 +65,7 @@ const signin = (dispatch) => async ({ email, password }) => {
                 type: 'signin',
                 payload: response.data.token
              });
-             navigate('CreateProfile');
+             navigate('Main');
         } catch(err) {
             dispatch({
                 type: 'add_error',
