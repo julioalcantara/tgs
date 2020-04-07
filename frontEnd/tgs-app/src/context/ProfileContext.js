@@ -31,8 +31,8 @@ const createProfile = (dispatch) => async ({name, phone }) => {
             dispatch({ 
                 type: 'createProfile', 
                 payload: response.data
-                
             });  
+            
             console.log("User Created a Profile");
             navigate('Main');
     
@@ -45,13 +45,12 @@ const createProfile = (dispatch) => async ({name, phone }) => {
 };
 const getProfile = (dispatch) => async () => {
         try{
-            const response = await dataBaseApi.get('/profile');
+        const response = await dataBaseApi.get('/profile');
             dispatch({ 
                 type: 'createProfile', 
                 payload: response.data
-                
             }); 
-    
+            console.log(response);
         } catch (err) {
             dispatch ({ 
                 type: 'add_error', 
@@ -60,7 +59,8 @@ const getProfile = (dispatch) => async () => {
 };
 
 const getProfileById = (dispatch) => async () => {
-
+    const id = currentUser;
+    console.log(id);
     const response = await dataBaseApi.get(`/profile/`);
     dispatch({ 
         type: 'createProfile', 

@@ -3,9 +3,11 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Image, Button } from 'react-native-elements';
 
 import { Context as AuthContext } from '../context/AuthContext';
+import { Context as ProfileContex } from '../context/ProfileContext';
 
 const HomeScreen = ({ navigation }) => {
     const { signout } = useContext(AuthContext);
+    const { getProfile, getProfileById } = useContext(ProfileContex);
 
     return (
         <View style={styles.container}>
@@ -15,10 +17,9 @@ const HomeScreen = ({ navigation }) => {
                 style={styles.imageStyle}
             />
 
-            <Button 
-            title= 'Sign out'
-            onPress={signout}
-        />
+            <Button title= 'Sign out' onPress={signout} />
+            
+            <Button title= 'Get use id' onPress={getProfile} />
         </View>
     );
 }

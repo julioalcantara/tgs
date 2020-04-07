@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
+import { navigate } from '../navigationRef';
 import ProfileCreateForm from '../components/ProfileCreateForm';
 import { Context as ProfileContext } from '../context/ProfileContext';
 
@@ -16,7 +18,12 @@ const CreateProfileScreen = () => {
                 submitButtonText = 'Submit'
                 errorMessage = {state.errorMessage}
                 onSubmit = {createProfile}
-            />                        
+            />
+            <Button 
+                title = "Home"
+                onPress= {() => navigate('Main')}
+            />
+
         </View>
     );
 }

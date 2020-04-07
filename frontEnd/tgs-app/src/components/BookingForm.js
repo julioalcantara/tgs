@@ -3,27 +3,27 @@ import { StyleSheet } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import Spacer from './Spacer';
 
-import { Context } from '../context/BookingContext';
+import { Context } from '../context/ProfileContext';
+import { get } from 'mongoose';
 
 const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+    const {state: {currentUser} } = useContext(Context);
+    const profileId = currentUser.createdProfile._id;
+
     const [checkin, setCheckin] = useState('');
     const [checkout, setcheckout] = useState('');
 
-    const {state: {currentUser}} = useContext(Context);
-    const profileId = currentUser.createdProfile._id;
     return (
         <>
             <Spacer>
                 <Text h3>{headerText}</Text>
-                
             </Spacer>
-
             <Input 
                 label ="Profile id" 
                 value = {profileId}
+                disabled= {true}
             />
             <Spacer />
-
             <Input 
                 label ="Checkin" 
                 value = {checkin}
@@ -32,7 +32,6 @@ const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) =
                 autoCorrect = {false}
             />
             <Spacer />
-
             <Input 
                 label = "Checkout"  
                 value = {checkout}

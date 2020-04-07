@@ -34,7 +34,7 @@ const createBooking = (dispatch) => async ({ profileId, checkin, checkout }) => 
                 
             });  
             console.log("User Created a booking successfully");
-            //navigate('Main');
+            navigate('Main');
     
         } catch (err) {
             dispatch ({ 

@@ -27,7 +27,7 @@ const ProfileCreateForm = ({ headerText, errorMessage, onSubmit, submitButtonTex
             {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
             <Spacer>
                 <Button title = {submitButtonText} 
-                    onPress={() =>{
+                    onPress={() => {
                         onSubmit({ name, phone });
 
                     }} 
