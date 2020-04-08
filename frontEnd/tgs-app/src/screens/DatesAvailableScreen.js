@@ -1,5 +1,5 @@
-import React, { useContext} from 'react';
-import {View, StyleSheet,Button} from 'react-native';
+import React, { useContext } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
 import { Context } from "../context/BookingContext";
@@ -17,7 +17,7 @@ const DatesAvailableScreen = () => {
                     headerText = "Booking"
                     errorMessage = {state.errorMessage}
                     submitButtonText = "Book"
-                    onSubmit = {createBooking}
+                    onSubmit = { createBooking }
                 />
                 
             </View>

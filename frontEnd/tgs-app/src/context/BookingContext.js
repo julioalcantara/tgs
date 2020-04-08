@@ -32,7 +32,7 @@ const createBooking = (dispatch) => async ({ profileId, checkin, checkout }) => 
                 type: 'createBooking', 
                 payload: response.data
                 
-            });  
+            }); 
             console.log("User Created a booking successfully");
             navigate('Main');
     

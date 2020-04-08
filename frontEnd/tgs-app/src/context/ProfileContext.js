@@ -23,11 +23,9 @@ const cleanErrorMessage = dispatch => () => {
 }
 
 const createProfile = (dispatch) => async ({name, phone }) => {
-    // use user token to create a profile
-    const token = await AsyncStorage.getItem('token'); 
-    if (token) {
         try{
             const response = await dataBaseApi.post('/profile', { name, phone });
+            //await AsyncStorage.setItem('currentUser', response.data.name );
             dispatch({ 
                 type: 'createProfile', 
                 payload: response.data
@@ -41,9 +39,9 @@ const createProfile = (dispatch) => async ({name, phone }) => {
                 type: 'add_error', 
                 payload: 'Something went wrong at creating your profile' })
         }
-    }
 };
 const getProfile = (dispatch) => async () => {
+
         try{
         const response = await dataBaseApi.get('/profile');
             dispatch({ 
@@ -59,8 +57,8 @@ const getProfile = (dispatch) => async () => {
 };
 
 const getProfileById = (dispatch) => async () => {
-    const id = currentUser;
-    console.log(id);
+    //const id = currentUser;
+    //console.log(id);
     const response = await dataBaseApi.get(`/profile/`);
     dispatch({ 
         type: 'createProfile', 
@@ -68,6 +66,7 @@ const getProfileById = (dispatch) => async () => {
     }); 
 
 };
+
 
 export const { Provider, Context } = CreateDataConxtext(
     profileReducer,
