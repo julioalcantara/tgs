@@ -7,7 +7,7 @@ import { Context as ProfileContex } from '../context/ProfileContext';
 
 const HomeScreen = ({ navigation }) => {
     const { signout } = useContext(AuthContext);
-    const { getProfile, getProfileById } = useContext(ProfileContex);
+    const { fetchProfile, getProfileById } = useContext(ProfileContex);
 
     return (
         <View style={styles.container}>
@@ -19,7 +19,7 @@ const HomeScreen = ({ navigation }) => {
 
             <Button title= 'Sign out' onPress={signout} />
             
-            <Button title= 'Get use id' onPress={getProfile} />
+            <Button title= 'Get use id' onPress={fetchProfile} />
         </View>
     );
 }
