@@ -1,6 +1,5 @@
 // provider must be presente on the app.js when is been called
 
-import { AsyncStorage } from 'react-native';
 import CreateDataConxtext from './CreateDataContext';
 import dataBaseApi from '../api/dataBase';
 import { navigate } from '../navigationRef';
@@ -12,7 +11,9 @@ const profileReducer = ( state, action ) => {
         case 'clean_error_message':
             return { ...state, errorMessage: ''};
         case 'createProfile':
-            return { ...state, currentUser: action.payload };
+            return { ...state , profile: action.payload }; 
+        case 'fetch_profile':
+            return action.payload; 
         default: 
             return state;
     }
@@ -23,45 +24,42 @@ const cleanErrorMessage = dispatch => () => {
 }
 
 const createProfile = (dispatch) => async ({name, phone }) => {
-        try{
-            const response = await dataBaseApi.post('/profile', { name, phone });
-            //await AsyncStorage.setItem('currentUser', response.data.name );
-            dispatch({ 
-                type: 'createProfile', 
-                payload: response.data
-            });  
-            
-            console.log("User Created a Profile");
-            navigate('Main');
-    
-        } catch (err) {
-            dispatch ({ 
-                type: 'add_error', 
-                payload: 'Something went wrong at creating your profile' })
-        }
-};
-const getProfile = (dispatch) => async () => {
+    try{
+        const response = await dataBaseApi.post('/profile', { name, phone });
+        dispatch({ 
+            type: 'createProfile', 
+            payload: response.data
+        });  
 
+        console.log("User Created a Profile");
+        navigate('Profile');
+
+    } catch (err) {
+        dispatch ({ 
+            type: 'add_error', 
+            payload: 'Something went wrong at creating your profile' })
+    }
+};
+
+const fetchProfile = (dispatch) => async () => {
         try{
         const response = await dataBaseApi.get('/profile');
             dispatch({ 
-                type: 'createProfile', 
+                type: 'fetch_profile', 
                 payload: response.data
             }); 
-            console.log(response);
         } catch (err) {
             dispatch ({ 
                 type: 'add_error', 
-                payload: 'Something went wrong at creating your profile' })
+                payload: 'Something went wrong at creating your profile'})
         }
 };
 
 const getProfileById = (dispatch) => async () => {
-    //const id = currentUser;
-    //console.log(id);
+    
     const response = await dataBaseApi.get(`/profile/`);
     dispatch({ 
-        type: 'createProfile', 
+        type: 'fetch_profile', 
         payload: response.data
     }); 
 
@@ -70,6 +68,6 @@ const getProfileById = (dispatch) => async () => {
 
 export const { Provider, Context } = CreateDataConxtext(
     profileReducer,
-    { cleanErrorMessage, createProfile, getProfile, getProfileById },
-    { errorMessage: '', currentUser: null }
+    { cleanErrorMessage, createProfile, fetchProfile, getProfileById },
+    { errorMessage: '', profile: null }
 ); 
