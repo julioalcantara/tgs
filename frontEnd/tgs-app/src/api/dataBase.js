@@ -6,6 +6,7 @@ const instance = axios.create({
     baseURL: 'http://0839adc6.ngrok.io'
 });
 
+//automatic Authentication
 instance.interceptors.request.use(
     async (config) => {
         const token = await AsyncStorage.getItem('token');
