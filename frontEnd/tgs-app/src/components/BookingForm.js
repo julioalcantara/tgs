@@ -4,11 +4,8 @@ import { Text, Button, Input } from 'react-native-elements';
 import Spacer from './Spacer';
 
 import { Context } from '../context/ProfileContext';
-import { get } from 'mongoose';
 
 const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
-    const {state: {currentUser} } = useContext(Context);
-    const profileId = currentUser.createdProfile._id;
 
     const [checkin, setCheckin] = useState('');
     const [checkout, setcheckout] = useState('');

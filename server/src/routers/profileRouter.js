@@ -7,26 +7,24 @@ const Profile = mongoose.model('Profile');
 
 const router = express.Router();
 
-router.post('/profile', (req, res)=> {
+router.post('/profile', async (req, res)=> {
     const profile = new Profile({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         phone: req.body.phone
     });
-    profile
+    await profile
         .save()
         .then( result => {
             console.log(result);
             res.status(201).json({
                 message: "User created suscessfully ",
-                createdProfile: {
-                    name: result.name,
-                    phone: result.phone,
-                    _id: result._id,
-                    request: {
-                        type: 'GET',
-                        url: "http://localhost:3000/profile/" + result._id
-                    }
+                name: result.name,
+                phone: result.phone,
+                _id: result._id,
+                request: {
+                    type: 'GET',
+                    url: "http://localhost:3000/profile/" + result._id
                 }
             });
         })
