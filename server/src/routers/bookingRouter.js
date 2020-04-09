@@ -8,7 +8,7 @@ const requireAuth = require('../middlewares/requireAuth');
 
 const router = express.Router();
 
-router.get('/booking', (req, res) => {
+router.get('/booking', async (req, res) => {
     Booking.find()
     .populate('profileId', 'name') // populate the booking schema with the profile info
     .exec()
@@ -37,7 +37,7 @@ router.get('/booking', (req, res) => {
 
 });
 
-router.post('/booking',  (req, res)=> {
+router.post('/booking', async (req, res)=> {
     Profile.findById( req.body.profileId)
         .then(profileId => {
             if(!profileId){
@@ -72,7 +72,7 @@ router.post('/booking',  (req, res)=> {
             });
 });
 
-router.get('/booking/:bookingId' ,(req, res)=> {
+router.get('/booking/:bookingId', async (req, res)=> {
     Booking.findById(req.params.bookingId)
         .populate('profileId') // populate the booking schema with the profile info
         .exec()
