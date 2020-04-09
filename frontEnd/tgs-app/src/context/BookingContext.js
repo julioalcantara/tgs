@@ -24,24 +24,22 @@ const cleanErrorMessage = dispatch => () => {
 }
 
 const createBooking = (dispatch) => async ({ profileId, checkin, checkout }) => {
-    const token = await AsyncStorage.getItem('token'); 
-    if (token) {
-        try{
-            const response = await dataBaseApi.post('/booking', { profileId, checkin, checkout });
-            dispatch({ 
-                type: 'createBooking', 
-                payload: response.data
-                
-            }); 
-            console.log("User Created a booking successfully");
-            navigate('Main');
-    
-        } catch (err) {
-            dispatch ({ 
-                type: 'add_error', 
-                payload: 'Something went wrong at creating your profile' })
-        }
+    try{
+        const response = await dataBaseApi.post('/booking', { profileId, checkin, checkout });
+        dispatch({ 
+            type: 'createBooking', 
+            payload: response.data
+            
+        }); 
+        console.log("User Created a booking successfully");
+        navigate('Main');
+
+    } catch (err) {
+        dispatch ({ 
+            type: 'add_error', 
+            payload: 'Something went wrong at creating your profile' })
     }
+    
 };
 
 
