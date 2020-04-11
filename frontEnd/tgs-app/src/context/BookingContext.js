@@ -1,7 +1,5 @@
 // provider must be presente on the app.js when is been called
 
-
-import { AsyncStorage } from 'react-native';
 import CreateDataConxtext from './CreateDataContext';
 import dataBaseApi from '../api/dataBase';
 import { navigate } from '../navigationRef';
