@@ -3,38 +3,66 @@ import {View, StyleSheet, Text, TouchableOpacity, Button} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from 'react-navigation';  
 
-const CalendarForm = ({ label }) => {
+const CalendarForm = () => {
     
-    const [date, setDate] = useState(new Date());
-    
-    const [show, setShow] = useState(false);
-    let outputDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+    const [checkin, setCheckin] = useState(new Date());
+    const [checkout, setCheckout] = useState(new Date());
+    const [checkinShow, setCheckinShow] = useState(false);
+    const [checkoutShow, setCheckoutShow] = useState(false);
+    let checkinOutputDate = checkin.getDate() + "/" + (checkin.getMonth() + 1) + "/" + checkin.getFullYear();
+    let checkoutOutputDate = checkout.getDate() + "/" + (checkout.getMonth() + 1) + "/" + checkout.getFullYear();
 
-    const isShow = ()=> {
-        setShow(true);
+    const ischeckinShow = ()=> {
+        setCheckinShow(true);
+    }
+    const ischeckoutShow = ()=> {
+        setCheckoutShow(true);
     }
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date; //if the user hits 'cancel', the date default will be store
-        setShow(false)
-        setDate(currentDate);
-        setShow(Platform.OS === 'ios' ? true : false);
+    const oncheckinChange = (event, selectedDate) => {
+        const checkinCurrentDate = selectedDate || date; //if the user hits 'cancel', the date default will be store
+        setCheckinShow(false);
+        setCheckin(checkinCurrentDate);
+        setCheckinShow(Platform.OS === 'ios' ? true : false);
+    };
+
+    const onCheckoutChange = (event, selectedDate) => {
+        const checkoutCurrentDate = selectedDate || date;
+        setCheckoutShow(false);
+        setCheckout(checkoutCurrentDate);
+        setCheckoutShow(Platform.OS === 'ios' ? true : false);
     };
 
     return (
         <SafeAreaView forceInset={{ vertical: 'always', horizontal: 'always'}}>
             <View style={styles.container}> 
-                <TouchableOpacity  onPress= {()=>isShow()}>
-                <Text style={styles.label}>{label}</Text>
-                <Text style={styles.output}>{outputDate}</Text>
+                <TouchableOpacity  onPress= {()=>ischeckinShow()}>
+                <Text style={styles.output}>{checkinOutputDate}</Text>
                 </TouchableOpacity>          
 
-                {show && (
+                {checkinShow && (
                     <DateTimePicker
+                    label="Check In"
                     testID="dateTimePicker" 
-                    value={date}
+                    value={checkin}
                     display="spinner"
-                    onChange={onChange}
+                    onChange={oncheckinChange}
+                    />
+                )} 
+            </View>
+
+            <View style={styles.container}> 
+                <TouchableOpacity  onPress= {()=>ischeckoutShow()}>
+                <Text style={styles.output}>{checkoutOutputDate}</Text>
+                </TouchableOpacity>          
+
+                {checkoutShow && (
+                    <DateTimePicker
+                    label="Check Out"
+                    testID="dateTimePicker" 
+                    value={checkout}
+                    display="spinner"
+                    onChange={onCheckoutChange}
                     />
                 )} 
             </View>
