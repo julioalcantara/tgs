@@ -9,7 +9,7 @@ import { Context as ProfileContext } from '../context/ProfileContext';
 const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
     const { state, fetchProfile } = useContext(ProfileContext);
-    //console.log(state);
+
     return (
         <View style={styles.container}>
             <NavigationEvents onWillFocus = {fetchProfile}/>
@@ -20,17 +20,17 @@ const ProfileScreen = () => {
                 />
             </View>   
             <FlatList 
-                data = {state}
-                
+                data = {state.profiles}
+                keyExtractor = {item => item.name}
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity>
-                            <ListItem chevron title={item._id} /> 
+                            <ListItem chevron title={item.name} /> 
                         </TouchableOpacity>
                     );
                     
                 }}
-                keyExtractor = {item => item._id}
+                
             />
             <Button 
                 title= 'Sign out'

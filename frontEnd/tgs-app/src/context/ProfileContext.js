@@ -32,7 +32,7 @@ const createProfile = (dispatch) => async ({name, phone }) => {
         });  
 
         console.log("User Created a Profile");
-        navigate('Profile');
+        navigate('Main');
 
     } catch (err) {
         dispatch ({ 
