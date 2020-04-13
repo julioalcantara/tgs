@@ -1,5 +1,6 @@
 // provider must be presente on the app.js when is been called
 
+import { AsyncStorage } from 'react-native';
 import CreateDataConxtext from './CreateDataContext';
 import dataBaseApi from '../api/dataBase';
 import { navigate } from '../navigationRef';
@@ -23,13 +24,10 @@ const cleanErrorMessage = dispatch => () => {
     dispatch({ type: 'clean_error_message'});
 }
 
-const createProfile = (dispatch) => async ({name, phone }) => {
+const createProfile = dispatch => async ({name, phone }) => {
     try{
         const response = await dataBaseApi.post('/profile', { name, phone });
-        dispatch({ 
-            type: 'createProfile', 
-            payload: response.data
-        });  
+        await AsyncStorage.setItem('profileId', response.data.profiles._id );
 
         console.log("User Created a Profile");
         navigate('Main');
@@ -44,10 +42,11 @@ const createProfile = (dispatch) => async ({name, phone }) => {
 const fetchProfile = (dispatch) => async () => {
         try{
         const response = await dataBaseApi.get('/profile');
-            dispatch({ 
-                type: 'fetch_profile', 
-                payload: response.data
-            }); 
+        dispatch({ 
+            type: 'fetch_profile', 
+            payload: response.data
+        }); 
+
         } catch (err) {
             dispatch ({ 
                 type: 'add_error', 
@@ -56,13 +55,13 @@ const fetchProfile = (dispatch) => async () => {
 };
 
 const getProfileById = (dispatch) => async () => {
-    
-    const response = await dataBaseApi.get(`/profile/`);
+    const id = fetchProfile.profile;
+    const profileResponse = await dataBaseApi.get(`/profile/`);
     dispatch({ 
         type: 'fetch_profile', 
-        payload: response.data
+        payload: profileResponse.data
     }); 
-
+    console.log(id);
 };
 
 

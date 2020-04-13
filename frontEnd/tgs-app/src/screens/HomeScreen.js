@@ -19,7 +19,7 @@ const HomeScreen = ({ navigation }) => {
 
             <Button title= 'Sign out' onPress={signout} />
             
-            <Button title= 'Get use id' onPress={fetchProfile} />
+            <Button title= 'Get use id' onPress={getProfileById} />
         </View>
     );
 }

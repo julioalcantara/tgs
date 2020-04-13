@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity , Text} from 'react-native';
 import { Image, Button, ListItem } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 
@@ -10,6 +10,7 @@ const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
     const { state, fetchProfile } = useContext(ProfileContext);
 
+    //console.log(state);
     return (
         <View style={styles.container}>
             <NavigationEvents onWillFocus = {fetchProfile}/>
@@ -24,9 +25,8 @@ const ProfileScreen = () => {
                 keyExtractor = {item => item.name}
                 renderItem={({ item }) => {
                     return (
-                        <TouchableOpacity>
-                            <ListItem chevron title={item.name} /> 
-                        </TouchableOpacity>
+                        <Text>{item.name}</Text>
+                        
                     );
                     
                 }}

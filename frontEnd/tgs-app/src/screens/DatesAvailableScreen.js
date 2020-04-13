@@ -24,7 +24,6 @@ const DatesAvailableScreen = () => {
                     onSubmit = { createBooking }
                 />
                 
-                <CalendarForm />
             </ScrollView>
             <Spacer />
            
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        marginBottom: 150
+        alignContent: 'center'
     }
 });
 

@@ -8,7 +8,7 @@ import { Context } from '../context/ProfileContext';
 
 const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
     const { state } = useContext(Context);
-    //console.log(state);
+
     const [checkin, setCheckin] = useState('');
     const [checkout, setcheckout] = useState('');
     const [profileId, setProfileId] = useState('');
@@ -28,9 +28,8 @@ const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) =
                         <Input 
                             label= "This is your profile id"
                             value = {item._id}
-                            //disabled= {true}
+                            disabled= {true}
                         />
-
                     );  
                 }} 
             />
@@ -39,6 +38,7 @@ const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) =
                 label= "Please Place you Profile id here!"
                 value = {profileId}
                 onChangeText = {setProfileId}
+                placeholder='xxxxxxxxxxxxxxxxxxxxxxx'
                 autoCapitalize = "none"
                 autoCorrect = {false}
             />
@@ -47,6 +47,7 @@ const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) =
                 label ="Checkin" 
                 value = {checkin}
                 onChangeText = {setCheckin}
+                placeholder = 'xx/xx/xxxx'
                 autoCapitalize = "none"
                 autoCorrect = {false}
             />
@@ -54,7 +55,8 @@ const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) =
             <Input 
                 label = "Checkout"  
                 value = {checkout}
-                onChangeText = {setcheckout}    
+                onChangeText = {setcheckout}  
+                placeholder = 'xx/xx/xxxx'  
                 autoCapitalize = "none"
                 autoCorrect = {false}
             />
