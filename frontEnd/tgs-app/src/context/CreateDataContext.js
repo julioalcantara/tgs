@@ -1,3 +1,6 @@
+// this is a helper file where the user can use Context and Provider without having to write all the code
+// again, so the user will write the reducer once and reuse it on other part of the program.
+
 import React, { useReducer } from 'react';
 
 export default  (reducer, actions, defaultValue) => {
