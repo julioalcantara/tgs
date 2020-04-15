@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { NavigationEvents, SafeAreaView } from 'react-navigation';
+import { View, StyleSheet } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 import { Context as ProfileContext } from '../context/ProfileContext';
 import { Context as BookingContext } from '../context/BookingContext';
@@ -16,17 +16,13 @@ const DatesAvailableScreen = () => {
     return (
         <View style={styles.container}>
              <NavigationEvents onWillFocus = {getProfileById}/>
-            <ScrollView>
                 <BookingForm 
                     headerText = "Booking"
                     errorMessage = {state.errorMessage}
                     submitButtonText = "Book"
                     onSubmit = { createBooking }
                 />
-                
-            </ScrollView>
-            <Spacer />
-           
+            <Spacer /> 
         </View>
     );
 }

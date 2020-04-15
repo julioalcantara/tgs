@@ -42,6 +42,22 @@ const createProfile = (dispatch) => async ({name, phone }) => {
     }
 };
 
+const getProfileById = (dispatch) => async () => {
+    const profileId = await AsyncStorage.getItem('profile');
+    try {
+    const profileResponse = await dataBaseApi.get(`/profile/${profileId}`);
+    dispatch({ 
+        type: 'fetch_profile', 
+        payload: profileResponse.data
+    }); 
+
+    } catch (err) {
+        dispatch ({ 
+            type: 'add_error', 
+            payload: 'Something went wrong at creating your profile'})
+    }
+};
+
 const fetchProfile = (dispatch) => async () => {
         try{
         const response = await dataBaseApi.get('/profile');
@@ -57,22 +73,8 @@ const fetchProfile = (dispatch) => async () => {
         }
 };
 
-const getProfileById = (dispatch) => async () => {
-    const profileId = await AsyncStorage.getItem('profile');
-    try {
-    const profileResponse = await dataBaseApi.get(`/profile/${profileId}`);
-
-    } catch (err) {
-        dispatch ({ 
-            type: 'add_error', 
-            payload: 'Something went wrong at creating your profile'})
-    }
-    //console.log(profileResponse);
-};
-
-
 export const { Provider, Context } = CreateDataConxtext(
     profileReducer,
     { cleanErrorMessage, createProfile, fetchProfile, getProfileById },
-    { errorMessage: '', profile: "" }
+    { errorMessage: '', profile: null }
 ); 
