@@ -10,12 +10,12 @@ import BookingForm from '../components/BookingForm';
 import CalendarForm from '../components/CalendarForm';
 
 const DatesAvailableScreen = () => {
-    const {  fetchProfile } = useContext(ProfileContext);
+    const {  getProfileById } = useContext(ProfileContext);
     const { state, createBooking } = useContext(BookingContext);
     
     return (
         <View style={styles.container}>
-             <NavigationEvents onWillFocus = {fetchProfile}/>
+             <NavigationEvents onWillFocus = {getProfileById}/>
             <ScrollView>
                 <BookingForm 
                     headerText = "Booking"

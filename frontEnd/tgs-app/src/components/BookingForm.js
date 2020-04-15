@@ -1,46 +1,29 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
-
+import { StyleSheet } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import Spacer from './Spacer';
 
-import { Context } from '../context/ProfileContext';
+import { Context as ProfileContext} from '../context/ProfileContext';
 
 const BookingForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
-    const { state } = useContext(Context);
+    const {  state } = useContext(ProfileContext);
 
     const [checkin, setCheckin] = useState('');
     const [checkout, setcheckout] = useState('');
-    const [profileId, setProfileId] = useState('');
+    const profileId = state.profile._id;
 
-    // console.log(state.profiles.item._id);
     return (
         <>
             <Spacer>
                 <Text h3>{headerText}</Text>
             </Spacer>
             
-            <FlatList 
-                data = {state.profiles}
-                keyExtractor = {item => item._id}
-                renderItem={({ item }) => {
-                    return (
-                        <Input 
-                            label= "This is your profile id"
-                            value = {item._id}
-                            disabled= {true}
-                        />
-                    );  
-                }} 
-            />
             <Spacer />
             <Input 
-                label= "Please Place you Profile id here!"
+                label= "Profile Id"
                 value = {profileId}
-                onChangeText = {setProfileId}
-                placeholder='xxxxxxxxxxxxxxxxxxxxxxx'
                 autoCapitalize = "none"
-                autoCorrect = {false}
+                disabled = {true}
             />
             <Spacer />
             <Input 

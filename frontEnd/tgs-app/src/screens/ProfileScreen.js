@@ -1,37 +1,29 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View, FlatList, TouchableOpacity , Text} from 'react-native';
-import { Image, Button, ListItem } from 'react-native-elements';
+import { StyleSheet, View, Text} from 'react-native';
+import { Image, Button } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
+import Spacer from '../components/Spacer';
 
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ProfileContext } from '../context/ProfileContext';
 
 const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
-    const { state, fetchProfile } = useContext(ProfileContext);
+    const { state, getProfileById } = useContext(ProfileContext);
 
-    //console.log(state);
+    console.log(state);
+    const name = state.profile.name;
     return (
         <View style={styles.container}>
-            <NavigationEvents onWillFocus = {fetchProfile}/>
+            <NavigationEvents onWillFocus = {getProfileById}/>
             <View style={styles.imageStyle}>
                 <Image
                     source={ require('../images/logo2.png')}
                     style={{ width: 150, height: 150}}
                 />
             </View>   
-            <FlatList 
-                data = {state.profiles}
-                keyExtractor = {item => item.name}
-                renderItem={({ item }) => {
-                    return (
-                        <Text>{item.name}</Text>
-                        
-                    );
-                    
-                }}
-                
-            />
+            <Text>Welcome, {name}</Text>
+            <Spacer />
             <Button 
                 title= 'Sign out'
                 onPress={signout}
