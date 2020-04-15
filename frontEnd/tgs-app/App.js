@@ -11,10 +11,13 @@ import CreateProfileScreen from './src/screens/CreateProfileScreen';
 import StudioProfileScreen from './src/screens/StudioProfileScreen';
 import DatesAvailableScreen from './src/screens/DatesAvailableScreen';
 import IntroScreen from './src/screens/IntroScreen';
+import AdminSigninScreen from './src/AdminScreens/AdminSigninScreen';
+import AdminHomeScreen from './src/AdminScreens/AdminHomeScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as ProfileProvider } from './src/context/ProfileContext';
 import { Provider as BookingProvider } from './src/context/BookingContext';
+import { Provider as AdminProvider } from './src/context/AdminAuthContext';
 
 import { setNavigator } from './src/navigationRef';
 
@@ -23,12 +26,14 @@ const switchNavigator = createSwitchNavigator ({
   loginFlow: createStackNavigator ({
     Signin: SigninScreen,
     Signup: SignupScreen,
-    CreateProfile: CreateProfileScreen
+    CreateProfile: CreateProfileScreen,
+    AdminSignin: AdminSigninScreen,
   }),
   mainFlow: createBottomTabNavigator ({
     Home: createStackNavigator ({
       Main: HomeScreen,
-      DatesAvailable: DatesAvailableScreen      
+      DatesAvailable: DatesAvailableScreen,
+      AdminMain: AdminHomeScreen      
     }),
     Studio: StudioProfileScreen,
     Profile: ProfileScreen
@@ -42,7 +47,9 @@ export default () => {
     <BookingProvider>
       <ProfileProvider>
         <AuthProvider>
+          <AdminProvider>
             <App ref={(navigator) => { setNavigator(navigator) }} /> 
+          </AdminProvider>
         </AuthProvider>
       </ProfileProvider>
     </BookingProvider>

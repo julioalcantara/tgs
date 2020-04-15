@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+
 import NavLink from '../components/NavLink';
 import AuthForm from '../components/AuthForm';
+
 import { Context } from '../context/AuthContext';
 
 const SigninScreen = () => {
@@ -20,6 +22,10 @@ const SigninScreen = () => {
             <NavLink 
                 text = "Don't have an account? Sing up instead!"
                 routeName = "Signup"
+            />
+            <NavLink 
+                text = "Administrator"
+                routeName = "AdminSignin"
             />
         </View>
     );
