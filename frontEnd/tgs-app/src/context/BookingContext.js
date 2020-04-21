@@ -12,6 +12,8 @@ const bookingReducer = ( state, action ) => {
             return { ...state, errorMessage: ''};
         case 'createBooking':
             return { ...state, currentBooking: action.payload };
+        case 'fetch_booking':
+            return action.payload; 
         default: 
             return state;
     }
@@ -40,9 +42,24 @@ const createBooking = (dispatch) => async ({ profileId, checkin, checkout }) => 
     
 };
 
+const fetchBooking = (dispatch) => async () => {
+    try{
+    const response = await dataBaseApi.get('/booking');
+    dispatch({ 
+        type: 'fetch_booking', 
+        payload: response.data
+    }); 
+
+    } catch (err) {
+        dispatch ({ 
+            type: 'add_error', 
+            payload: 'Something went wrong at creating your profile'})
+    }
+};
+
 
 export const { Provider, Context } = CreateDataConxtext(
     bookingReducer,
-    { cleanErrorMessage, createBooking},
+    { cleanErrorMessage, createBooking, fetchBooking},
     { errorMessage: '', currentBooking: null }
 ); 
