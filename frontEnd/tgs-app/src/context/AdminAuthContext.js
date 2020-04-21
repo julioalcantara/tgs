@@ -47,6 +47,7 @@ const signup = (dispatch) => async ({ email, password }) => {
             type: 'signin', 
             payload: response.data.token 
         });
+        
         // navigte to main flow
         navigate('AdminMain');
     } catch (err) {
@@ -65,6 +66,7 @@ const signin = (dispatch) => async ({ email, password }) => {
                 payload: response.data.token
              });
              navigate('AdminMain');
+             
         } catch(err) {
             dispatch({
                 type: 'add_error',
