@@ -12,7 +12,10 @@ import StudioProfileScreen from './src/screens/StudioProfileScreen';
 import DatesAvailableScreen from './src/screens/DatesAvailableScreen';
 import IntroScreen from './src/screens/IntroScreen';
 import AdminSigninScreen from './src/AdminScreens/AdminSigninScreen';
+import AdminSignupScreen from './src/AdminScreens/AdminSingupScreen';
 import AdminHomeScreen from './src/AdminScreens/AdminHomeScreen';
+import ManageBookingsScreen from './src/AdminScreens/ManageBookingsScreen';
+import DisplayBookingScreen from './src/AdminScreens/DisplayBookingScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as ProfileProvider } from './src/context/ProfileContext';
@@ -28,12 +31,17 @@ const switchNavigator = createSwitchNavigator ({
     Signup: SignupScreen,
     CreateProfile: CreateProfileScreen,
     AdminSignin: AdminSigninScreen,
+    AdminSignup: AdminSignupScreen,
+    AdminMain: AdminHomeScreen,
+    ManageBookings: ManageBookingsScreen,
+    DisplayBooking: DisplayBookingScreen
   }),
+  
   mainFlow: createBottomTabNavigator ({
+    
     Home: createStackNavigator ({
       Main: HomeScreen,
-      DatesAvailable: DatesAvailableScreen,
-      AdminMain: AdminHomeScreen      
+      DatesAvailable: DatesAvailableScreen
     }),
     Studio: StudioProfileScreen,
     Profile: ProfileScreen

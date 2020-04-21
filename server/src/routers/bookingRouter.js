@@ -74,7 +74,7 @@ router.post('/booking', async (req, res)=> {
 
 router.get('/booking/:bookingId', async (req, res)=> {
     Booking.findById(req.params.bookingId)
-        .populate('profileId') // populate the booking schema with the profile info
+        .populate('profileId', 'name') // populate the booking schema with the profile info
         .exec()
         .then(booking => {
             if(!booking){

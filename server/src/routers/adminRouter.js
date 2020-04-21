@@ -6,7 +6,7 @@ const Admin = mongoose.model('Admin');
 
 const router = express.Router();
 
-router.post('admin/signup', async (req, res)=> {
+router.post('/admin/signup', async (req, res)=> {
     const {  email, password } = req.body; //get information from the body
 
     try{

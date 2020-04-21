@@ -37,7 +37,8 @@ router.post('/profile', async (req, res)=> {
 
 router.get('/profile', (req, res) => {
     Profile.find()
-        .select('name phone _id')
+        .populate('userId', 'email')
+        // .select('name phone _id')
         .exec()
         .then(docs => {
             const response = {
@@ -67,7 +68,8 @@ router.get('/profile', (req, res) => {
 router.get('/profile/:profileId', (req, res)=> {
     const profileId = req.params.profileId;
     Profile.findById(profileId)
-        .select('name phone _id')
+        .populate('userId', 'email')
+        // .select('name phone _id')
         .exec()
         .then(docs => {
             if(docs){
