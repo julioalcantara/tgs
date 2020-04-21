@@ -4,21 +4,26 @@ import { Image, Button } from 'react-native-elements';
 
 import { Context as AdminAuthContext } from '../context/AdminAuthContext';
 
-const AdminHomeScreen = () => {
+const AdminHomeScreen = ({ navigation }) => {
     const { signout } = useContext(AdminAuthContext);
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}> Welcome to TGS app </Text>
+            <Text style={styles.text}> Welcome Admin </Text>
             <Image
                 source={ require('../images/logo2.png')}
                 style={styles.imageStyle}
             />
-
+            <Button title= 'Manage Bookings' onPress={() => navigation.navigate('ManageBookings')} />
             <Button title= 'Sign out' onPress={signout} />
         </View>
     );
 }
+
+//hide the header
+AdminHomeScreen.navigationOptions = {
+    headerShown: false
+};
 
 const styles = StyleSheet.create({
     container: {
