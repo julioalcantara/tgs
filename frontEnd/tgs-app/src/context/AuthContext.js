@@ -24,6 +24,7 @@ const authReducer = ( state, action ) => {
 
 const tryLocalSignin = dispatch => async () => {
     const token = await AsyncStorage.getItem('token');
+    
     if (token) {
         dispatch ({ type: 'signin', payload: token });
         navigate('Main');
@@ -75,7 +76,7 @@ const signin = (dispatch) => async ({ email, password }) => {
     };
 
 const signout = dispatch => async ()=> {
-    await AsyncStorage.clear();
+    await AsyncStorage.removeItem();
     dispatch({ type: 'signout' });
     navigate('loginFlow');
 };
