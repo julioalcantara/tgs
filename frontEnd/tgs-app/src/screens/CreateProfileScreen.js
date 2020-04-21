@@ -19,10 +19,7 @@ const CreateProfileScreen = () => {
                 errorMessage = {state.errorMessage}
                 onSubmit = {createProfile}
             />
-            <Button 
-                title = "Home"
-                onPress= {() => navigate('Main')}
-            />
+            
 
         </View>
     );

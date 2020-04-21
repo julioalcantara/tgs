@@ -20,6 +20,10 @@ const AdminSigninScreen = () => {
                 onSubmit = {signin}
             />
             <NavLink 
+                text = "Sign up as Admin"
+                routeName = "AdminSignup"
+            />
+            <NavLink 
                 text = "Sign in as User"
                 routeName = "Signin"
             />
