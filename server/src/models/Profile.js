@@ -4,13 +4,18 @@ const profileSchema = new mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId
     },
-    name: {
+    firstName: {
         type: String,
         required: true
     },
-    phone: {
+    lastName: {
+        type: String,
+        required: true
+    },
+    styleCategory: {
         type: String,
         required: true
     }
+
 });
 mongoose.model('Profile', profileSchema)

@@ -4,23 +4,33 @@ import { Text, Button, Input } from 'react-native-elements';
 import Spacer from './Spacer';
 
 const ProfileCreateForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [styleCategory, setStyleCategory] = useState('');
+
     return (
         <>
             <Spacer>
                 <Text h3>{headerText}</Text>
             </Spacer>
             <Input 
-                label ="Name" 
-                value = {name}
-                onChangeText = {setName}
+                label ="First Name" 
+                value = {firstName}
+                onChangeText = {setFirstName}
             />
             <Spacer />
             <Input 
-                label = "Phone"  
-                value = {phone}
-                onChangeText = {setPhone}    
+                label = "Last Name"  
+                value = {lastName}
+                onChangeText = {setLastName}    
+                autoCapitalize = "none"
+                autoCorrect = {false}
+            />
+            <Spacer />
+            <Input 
+                label = "Which tattoo style do you do?"  
+                value = {styleCategory}
+                onChangeText = {setStyleCategory}    
                 autoCapitalize = "none"
                 autoCorrect = {false}
             />
@@ -28,7 +38,7 @@ const ProfileCreateForm = ({ headerText, errorMessage, onSubmit, submitButtonTex
             <Spacer>
                 <Button title = {submitButtonText} 
                     onPress={() => {
-                        onSubmit({ name, phone });
+                        onSubmit({ firstName, lastName, styleCategory });
 
                     }} 
                 />

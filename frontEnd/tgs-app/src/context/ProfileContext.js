@@ -24,9 +24,9 @@ const cleanErrorMessage = dispatch => () => {
     dispatch({ type: 'clean_error_message'});
 }
 
-const createProfile = (dispatch) => async ({name, phone }) => {
+const createProfile = (dispatch) => async ({firstName, lastName, styleCategory }) => {
     try{
-        const response = await dataBaseApi.post('/profile', { name, phone });
+        const response = await dataBaseApi.post('/profile', { firstName, lastName, styleCategory });
         await AsyncStorage.setItem('profile', response.data._id );
         dispatch({ 
             type: 'createProfile', 

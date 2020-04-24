@@ -10,8 +10,9 @@ const router = express.Router();
 router.post('/profile', async (req, res)=> {
     const profile = new Profile({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        phone: req.body.phone
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        styleCategory: req.body.styleCategory
     });
     await profile
         .save()
@@ -19,13 +20,10 @@ router.post('/profile', async (req, res)=> {
             console.log(result);
             res.status(201).json({
                 message: "User created suscessfully ",
-                name: result.name,
-                phone: result.phone,
                 _id: result._id,
-                request: {
-                    type: 'GET',
-                    url: "http://localhost:3000/profile/" + result._id
-                }
+                firstName: result.firstName,
+                lastName: result.lastName,
+                styleCategory: result.styleCategory,
             });
         })
         .catch(err => {
@@ -45,17 +43,13 @@ router.get('/profile', (req, res) => {
                 count: docs.length,
                 profiles: docs.map(docs => {
                     return {
-                        name: docs.name,
-                        phone: docs.phone,
                         _id: docs._id,
-                        request: {
-                            type: 'GET',
-                            url: "http://localhost:3000/profile/" + docs._id
-                        }
+                        firstName: docs.firstName,
+                        lastName: docs.lastName,
+                        styleCategory: docs.styleCategory
                     }
                 })
             };
-
             res.status(200).json(response );
         })
         .catch(err => {
@@ -93,11 +87,7 @@ router.patch('/profile/:profileId',(req, res)=> {
         .exec()
         .then( result => {
             res.status(200).json({
-                message: 'profile updated',
-                request: {
-                    type: 'GET',
-                    url: "http://localhost:3000/profiles/" + profileId
-                }
+                message: 'profile updated'
             });
         })
         .catch(err => {
@@ -113,12 +103,7 @@ router.delete('/profile/:profileId', (req, res)=> {
         .exec()
         .then( result => {
             res.status(200).json({
-                message: 'Product deleted',
-                request: {
-                    type: 'POST',
-                    url: "http://localhost:3000/profile/",
-                    body: { name: 'String', phone: 'String'}
-                }
+                message: 'Product deleted'
             });
         })
         .catch(err => {
