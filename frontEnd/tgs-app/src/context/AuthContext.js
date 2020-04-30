@@ -30,7 +30,7 @@ const tryLocalSignin = dispatch => async () => {
         navigate('Main');
         
     } else {
-        navigate('Signup');
+        navigate('Signin');
     }
 }
 
@@ -76,7 +76,7 @@ const signin = (dispatch) => async ({ email, password }) => {
     };
 
 const signout = dispatch => async ()=> {
-    await AsyncStorage.removeItem();
+    await AsyncStorage.clear();
     dispatch({ type: 'signout' });
     navigate('loginFlow');
 };

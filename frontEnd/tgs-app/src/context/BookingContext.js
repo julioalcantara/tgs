@@ -32,12 +32,13 @@ const createBooking = (dispatch) => async ({ profileId, checkin, checkout }) => 
             
         }); 
         console.log("User Created a booking successfully");
-        navigate('Main');
+        alert("Booking created successfully");
+        navigate('Studio');
 
     } catch (err) {
         dispatch ({ 
             type: 'add_error', 
-            payload: 'Something went wrong at creating your profile' })
+            payload: 'Something went wrong at creating your Booking' })
     }
     
 };

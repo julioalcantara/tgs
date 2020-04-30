@@ -8,12 +8,7 @@ const bookingSchema = new mongoose.Schema({
             ref: 'Profile',
             required: true 
         },
-        userId: {
-         type: mongoose.Schema.Types.ObjectId,
-            ref: 'Profile',
-            required: true 
-        },
-
+        
         checkin: {
            type: String,
            required: true

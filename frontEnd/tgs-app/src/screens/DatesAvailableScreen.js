@@ -7,7 +7,6 @@ import { Context as BookingContext } from '../context/BookingContext';
 
 import Spacer from '../components/Spacer';
 import BookingForm from '../components/BookingForm';
-import CalendarForm from '../components/CalendarForm';
 
 const DatesAvailableScreen = () => {
     const {  getProfileById } = useContext(ProfileContext);

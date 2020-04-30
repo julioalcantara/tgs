@@ -14,9 +14,9 @@ const SingupScreen = () => {
         <View style={styles.container}>
             <NavigationEvents onWillBlur={ cleanErrorMessage } />
             <AuthForm 
-                headerText = "Sign up"
+                headerText = "Create Account"
                 errorMessage = {state.errorMessage}
-                submitButtonText = "Sign up"
+                submitButtonText = "Create"
                 onSubmit = {signup}
             />
             <NavLink 

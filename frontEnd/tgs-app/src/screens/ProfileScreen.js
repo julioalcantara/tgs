@@ -24,7 +24,7 @@ const ProfileScreen = () => {
             <Text>Welcome, {name}</Text>
             <Spacer />
             <Button 
-                title= 'Sign out'
+                title= 'Log out'
                 onPress={signout}
             />
         </View>
