@@ -20,11 +20,7 @@ router.get('/booking', async (req, res) => {
                     _id: docs._id,
                     profileId: docs.profileId,
                     checkin: docs.checkin,
-                    checkout: docs.checkout,
-                    request: {
-                        type: 'GET',
-                        url: "http://localhost:3000/booking/" + docs._id
-                    }
+                    checkout: docs.checkout
                 }
             })
         });
@@ -59,11 +55,7 @@ router.post('/booking', async (req, res)=> {
                 id: result._id,
                 profileId: result.profileId,
                 checkin: result.checkin,
-                checkout: result.checkout,
-                request: {
-                    type: 'GET',
-                    url: "http://localhost:3000/booking/" + result._id
-                }
+                checkout: result.checkout
             }); 
         }).catch(err => {
                 res.status(500).json({
@@ -84,10 +76,6 @@ router.get('/booking/:bookingId', async (req, res)=> {
             }
             res.status(200).json({
                 id: booking,
-                request: {
-                    type: 'GET',
-                    url: "http://localhost:3000/booking/"
-                }
             });
         })
         .catch(err => {
@@ -104,11 +92,7 @@ router.patch('/booking/:bookingId',(req, res)=> {
         .exec()
         .then( result => {
             res.status(200).json({
-                message: 'booking updated',
-                request: {
-                    type: 'GET',
-                    url: "http://localhost:3000/booking/" + id
-                }
+                message: 'booking updated'
             });
         })
         .catch(err => {
@@ -123,12 +107,7 @@ router.delete('/booking/:bookingId', (req, res)=> {
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'Booking deleted',
-                request: {
-                    type: 'POS',
-                    url: "http://localhost:3000/booking",
-                    body: { name: "name", email: "email@email.com"}
-                }
+                message: 'Booking deleted'
             });
         })
         .catch(err => {
