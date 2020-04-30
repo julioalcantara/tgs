@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Image, Button } from 'react-native-elements';
 
+
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ProfileContex } from '../context/ProfileContext';
 
@@ -16,15 +17,18 @@ const HomeScreen = ({ navigation }) => {
                 source={ require('../images/logo2.png')}
                 style={styles.imageStyle}
             />
-
-            <Button title= 'Sign out' onPress={signout} />
+            <Button 
+                title= 'Sign out' 
+                onPress={signout}  
+                color = "red"
+            />    
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
+        marginTop: 50,
         flex: 1,
         justifyContent: 'center',
         alignSelf: 'center'
