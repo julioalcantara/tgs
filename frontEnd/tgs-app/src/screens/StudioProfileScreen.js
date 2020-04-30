@@ -37,11 +37,13 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 50,
         flex: 1,
+        justifyContent: 'flex-start',
         padding: 17
     },
     imageStyle: {
-        width: 350,
-        height: 107
+        width: 370,
+        height: 107,
+        marginBottom: 15
     },
     textBtn: {
         fontSize: 20
