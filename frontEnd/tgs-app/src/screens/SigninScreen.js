@@ -20,11 +20,11 @@ const SigninScreen = () => {
                 onSubmit = {signin} 
             />
             <NavLink 
-                text = "Don't have an account? Sing up instead!"
+                text = "Don't have an account? Click here to create one"
                 routeName = "Signup"
             />
             <NavLink 
-                text = "Administrator"
+                text = "Sing in as Administrator"
                 routeName = "AdminSignin"
             />
         </View>

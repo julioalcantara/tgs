@@ -19,10 +19,10 @@ const AdminSigninScreen = () => {
                 submitButtonText = "Sign in"
                 onSubmit = {signin}
             />
-            <NavLink 
+            {/* <NavLink 
                 text = "Sign up as Admin"
                 routeName = "AdminSignup"
-            />
+            /> */}
             <NavLink 
                 text = "Sign in as User"
                 routeName = "Signin"

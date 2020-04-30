@@ -53,7 +53,7 @@ const fetchBooking = (dispatch) => async () => {
     } catch (err) {
         dispatch ({ 
             type: 'add_error', 
-            payload: 'Something went wrong at creating your profile'})
+            payload: 'Something went wrong at creating your booking'})
     }
 };
 

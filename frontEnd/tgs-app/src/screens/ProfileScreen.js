@@ -11,8 +11,7 @@ const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
     const { state, getProfileById } = useContext(ProfileContext);
 
-    console.log(state);
-    const name = state.profile.name;
+    const name = state.profile.firstName;
     return (
         <View style={styles.container}>
             <NavigationEvents onWillFocus = {getProfileById}/>
