@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/booking', async (req, res) => {
     Booking.find()
-    .populate('profileId', 'name') // populate the booking schema with the profile info
+    .populate('profileId', 'firstName') // populate the booking schema with the profile info
     .exec()
     .then(docs => {
         res.status(200).json({
@@ -74,7 +74,7 @@ router.post('/booking', async (req, res)=> {
 
 router.get('/booking/:bookingId', async (req, res)=> {
     Booking.findById(req.params.bookingId)
-        .populate('profileId', 'name') // populate the booking schema with the profile info
+        .populate('profileId', 'firstName') // populate the booking schema with the profile info
         .exec()
         .then(booking => {
             if(!booking){
