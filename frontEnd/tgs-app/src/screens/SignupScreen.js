@@ -23,10 +23,6 @@ const SingupScreen = () => {
                 text = "Already have an account? Sign in instead!"
                 routeName = 'Signin'
             />
-            <NavLink 
-                text = "Administrator"
-                routeName = "AdminSignin"
-            />
         </View>
     );
 };
