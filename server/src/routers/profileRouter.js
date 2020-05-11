@@ -35,7 +35,7 @@ router.post('/profile', async (req, res)=> {
 
 router.get('/profile', (req, res) => {
     Profile.find()
-        .populate('userId', 'email')
+        //.populate('userId', 'email')
         // .select('name phone _id')
         .exec()
         .then(docs => {
@@ -50,7 +50,7 @@ router.get('/profile', (req, res) => {
                     }
                 })
             };
-            res.status(200).json(response );
+            res.status(200).json(response);
         })
         .catch(err => {
             res.status(500).json({

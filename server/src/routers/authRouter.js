@@ -43,6 +43,30 @@ router.post('/signin', async (req, res)=> {
     } catch (err) {
         return res.status(422).send({ error: 'Invalide password or email'});
     }  
+
+    router.get('/user', (req, res) => {
+        User.find()
+            // .select('name phone _id')
+            .exec()
+            .then(docs => {
+                const response = {
+                    count: docs.length,
+                    users: docs.map(docs => {
+                        return {
+                            _id: docs._id,
+                            email: docs.email,
+                            password: docs.password
+                        }
+                    })
+                };
+                res.status(200).json(response);
+            })
+            .catch(err => {
+                res.status(500).json({
+                    error: err
+                });
+            })
+    });
 });
 
 module.exports = router;

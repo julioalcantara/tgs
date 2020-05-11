@@ -30,6 +30,7 @@ const ProfileCreateForm = ({ headerText, errorMessage, onSubmit, submitButtonTex
             <Input 
                 label = "Which tattoo style do you do?"  
                 value = {styleCategory}
+                placeholder = "Colour, Realism, Old School"
                 onChangeText = {setStyleCategory}    
                 autoCapitalize = "none"
                 autoCorrect = {false}

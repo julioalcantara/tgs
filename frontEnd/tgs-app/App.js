@@ -25,7 +25,7 @@ import { Provider as AdminProvider } from './src/context/AdminAuthContext';
 import { setNavigator } from './src/navigationRef';
 
 const switchNavigator = createSwitchNavigator ({
-  Intro: IntroScreen,
+  //Intro: IntroScreen,
   loginFlow: createStackNavigator ({
     Signin: SigninScreen,
     Signup: SignupScreen,

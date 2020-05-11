@@ -9,9 +9,11 @@ import { Context as ProfileContext } from '../context/ProfileContext';
 
 const ProfileScreen = () => {
     const { signout } = useContext(AuthContext);
-    const { state, getProfileById } = useContext(ProfileContext);
+    const { state, getProfileById, fetchProfile } = useContext(ProfileContext);
 
-    const name = state.profile.firstName;
+    const firstName = state.profile.firstName;
+    const lastName = state.profile.lastName;
+    //const name = "Your name";
     return (
         <View style={styles.container}>
             <NavigationEvents onWillFocus = {getProfileById}/>
@@ -21,7 +23,7 @@ const ProfileScreen = () => {
                     style={{ width: 150, height: 150}}
                 />
             </View>   
-            <Text>Welcome, {name}</Text>
+            <Text>Welcome, {firstName} {lastName} </Text>
             <Spacer />
             <Button 
                 title= 'Log out'
