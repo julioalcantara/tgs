@@ -8,6 +8,7 @@ const requireAuth = require('../middlewares/requireAuth');
 
 const router = express.Router();
 
+//fetch bookings
 router.get('/booking', async (req, res) => {
     Booking.find()
     .populate('profileId', 'firstName') // populate the booking schema with the profile info
@@ -33,6 +34,7 @@ router.get('/booking', async (req, res) => {
 
 });
 
+//create booking
 router.post('/booking', async (req, res)=> {
     Profile.findById( req.body.profileId)
         .then(profileId => {
@@ -64,6 +66,7 @@ router.post('/booking', async (req, res)=> {
             });
 });
 
+//get booking by ID
 router.get('/booking/:bookingId', async (req, res)=> {
     Booking.findById(req.params.bookingId)
         .populate('profileId', 'firstName') // populate the booking schema with the profile info
@@ -85,6 +88,7 @@ router.get('/booking/:bookingId', async (req, res)=> {
         });
 });
 
+//Edit booking
 router.patch('/booking/:bookingId',(req, res)=> {
     const id = req.params.bookingId;
     const updateBooking = req.body;
@@ -102,6 +106,7 @@ router.patch('/booking/:bookingId',(req, res)=> {
         });
 });
 
+//delete booking
 router.delete('/booking/:bookingId', (req, res)=> {
     Booking.remove({ _id: req.params.bookingId })
         .exec()

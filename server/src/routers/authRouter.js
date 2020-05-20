@@ -13,8 +13,8 @@ router.post('/signup', async (req, res)=> {
     try{
         const user = new User({ email, password}); //create a new user schema
         await user.save();
-
-        const token = jwt.sign({ userId: user._id}, 'MY_SECRET_KEY'); // veryfy the user that already have { salt and hash }
+        // veryfy the user that already have { salt and hash }
+        const token = jwt.sign({ userId: user._id}, 'MY_SECRET_KEY'); 
         res.send({ token });
 
     } catch (err) {
